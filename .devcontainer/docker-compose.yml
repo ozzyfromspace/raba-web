@@ -6,6 +6,8 @@ services:
       target: devcontainer
     volumes:
       - react-root-volume:/root/code
+      - bin-scripts:/bin
     command: ['sleep', 'infinity']
 volumes:
   react-root-volume:
+  bin-scripts:

@@ -1,0 +1,26 @@
+{
+  "name": "raba v2",
+  "dockerComposeFile": "./docker-compose.yml",
+  "service": "react",
+  "workspaceFolder": "/root/code/",
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "bierner.emojisense",
+    "patbenatar.advanced-new-file",
+    "NuclleaR.vscode-extension-auto-import",
+    "formulahendry.auto-rename-tag",
+    "ms-azuretools.vscode-docker",
+    "mikestead.dotenv",
+    "dsznajder.es7-react-js-snippets",
+    "sleistner.vscode-fileutils",
+    "abusaidm.html-snippets",
+    "wix.vscode-import-cost",
+    "eg2.vscode-npm-script",
+    "christian-kohler.npm-intellisense",
+    "ionutvmi.path-autocomplete",
+    "esbenp.prettier-vscode",
+    "humao.rest-client",
+    "team-sapling.sapling"
+  ],
+  "features": { "fish": "latest", "git": "latest" }
+}

@@ -1,0 +1,11 @@
+services:
+  react:
+    build:
+      context: ..
+      dockerfile: ./.devcontainer/Dockerfile.devcontainer
+      target: devcontainer
+    volumes:
+      - react-root-volume:/root/code
+    command: ['sleep', 'infinity']
+volumes:
+  react-root-volume:

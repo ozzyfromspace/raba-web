@@ -1,5 +1,12 @@
-FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-18-bullseye as devcontainer
+# FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-18-bullseye as devcontainer
+FROM node:lts-bullseye-slim as devcontainer
 WORKDIR /root/code/
+
+RUN apt-get update && apt-get install -y git && \
+apt-get install -y vim && apt-get update && \
+apt install fish -y
+
+COPY ../shared/ /root/code/shared/
 COPY ../.devcontainer/devcontainer.json ./.devcontainer/devcontainer.json
 COPY ../.devcontainer/docker-compose.yml ./.devcontainer/docker-compose.yml
 COPY ../.devcontainer/Dockerfile.devcontainer ./.devcontainer/Dockerfile.devcontainer

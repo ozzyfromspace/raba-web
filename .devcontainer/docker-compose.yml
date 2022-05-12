@@ -5,9 +5,17 @@ services:
       dockerfile: ./.devcontainer/Dockerfile.devcontainer
       target: devcontainer
     volumes:
-      - react-root-volume:/root/code
-      - bin-scripts:/bin
+      - ../shared/:/root/code/shared/:ro
+      - ../.devcontainer:/root/code/.devcontainer/:ro
+      - react-raba-volume:/root/code:rw
+      - react-raba-vscode:/vscode:rw
+      - raba-bin-scripts:/bin:rw
+    networks:
+      - raba-network
     command: ['sleep', 'infinity']
 volumes:
-  react-root-volume:
-  bin-scripts:
+  react-raba-volume:
+  react-raba-vscode:
+  raba-bin-scripts:
+networks:
+  raba-network:

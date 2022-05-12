@@ -1,8 +1,11 @@
 {
-  "name": "raba v2",
+  "name": "raba-web",
   "dockerComposeFile": "./docker-compose.yml",
   "service": "react",
   "workspaceFolder": "/root/code/",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "fish"
+  },
   "extensions": [
     "dbaeumer.vscode-eslint",
     "bierner.emojisense",
@@ -21,6 +24,5 @@
     "esbenp.prettier-vscode",
     "humao.rest-client",
     "team-sapling.sapling"
-  ],
-  "features": { "fish": "latest", "git": "latest" }
+  ]
 }

@@ -3,12 +3,18 @@ export enum Player {
   TWO = 'PLAYER_TWO',
 }
 
+export enum PlayerColor {
+  ONE = '#ff0000',
+  TWO = '#0000ff',
+}
+
 export enum ResourceTypeName {
   GAME = 'GAME',
   PAD = 'PAD',
   COW = 'COW',
   PADS = 'PADS',
   COWS = 'COWS',
+  BASE_COW = 'BASE_COW'
 }
 
 export enum ActionTypeName {
@@ -31,14 +37,16 @@ export enum PayloadTypeName {
   SHOW_INVALID_PAD_PAYLOAD = 'SHOW_INVALID_PAD_PAYLOAD',
 }
 
+export enum CowTypeName {
+  COW = 'COW',
+  SAFE_COW = 'SAFE_COW',
+  FREE_COW = 'FREE_COW',
+  CAPTURED_COW = 'CAPTURED_COW',
+}
+
 export type TypeName = keyof (typeof ResourceTypeName &
   typeof ActionTypeName &
   typeof PayloadTypeName);
-
-export enum CowState {
-  FREE = 'FREE',
-  CAPTURED = 'CAPTURED',
-}
 
 type BaseId =
   | '_00'
@@ -79,29 +87,37 @@ export interface Pad extends BaseInterface {
   padId: PadId;
   centerX: number;
   centerY: number;
+  radius: number;
   error: boolean;
   selected: boolean;
   cow: null | CowId;
 }
 
-export type Cow = {
-  __typename: ResourceTypeName.COW;
+interface BaseCow {
+  __typename: CowTypeName;
   cowId: CowId;
   owner: Player;
   centerX: number;
   centerY: number;
-} & (
-  | {
-      cowState: CowState.FREE | CowState.CAPTURED;
-      pad: null;
-    }
-  | {
-      cowState: CowState.FREE;
-      pad: PadId;
-      error: boolean;
-      selected: boolean;
-    }
-);
+  radius: number;
+}
+
+export interface SafeCow extends BaseCow {
+  __typename: CowTypeName.SAFE_COW;
+};
+
+export interface FreeCow extends BaseCow {
+  __typename: CowTypeName.FREE_COW;
+  padId: PadId;
+  selected: boolean;
+  error: boolean;
+}
+
+export interface CapturedCow extends BaseCow {
+  __typename: CowTypeName.CAPTURED_COW;
+}
+
+export type Cow = SafeCow | FreeCow | CapturedCow;
 
 export type Pads = {
   __typename: ResourceTypeName.PADS;

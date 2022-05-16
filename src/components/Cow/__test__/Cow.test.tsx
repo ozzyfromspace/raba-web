@@ -14,6 +14,9 @@ const cowProps: CowProps = {
   error: false,
   owner: Player.ONE,
   padId: 'PAD_00',
+  fill: '#fff',
+  stroke: '#808080',
+  strokeOpacity: 0.5,
 };
 
 const ui = (

@@ -1,13 +1,16 @@
 // import styles from './App.module.scss';
 
-import Board from 'components/Board';
+import Board from "../Board";
+import GameProvider from '../GameProvider';
 
 const App = () => {
   return (
-    <div>
-      App
-      <Board />
-    </div>
+    <GameProvider>
+      <div>
+        App
+        <Board />
+      </div>
+    </GameProvider>
   );
 };
 

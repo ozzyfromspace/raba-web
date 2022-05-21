@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { CowProps } from 'utils/props';
-import SvgParent from 'utils/SVGParent';
-import { CowId, CowTypeName, PadId, Player } from 'utils/types';
+import { CowProps } from '../../../utils/props';
+import SVGParent from "../../../utils/SVGParent";
+import { CowId, CowTypeName, PadId, Player } from '../../../utils/types';
 import Cow from '../Cow';
 
 const cowProps: CowProps = {
@@ -20,9 +20,9 @@ const cowProps: CowProps = {
 };
 
 const ui = (
-  <SvgParent>
+  <SVGParent>
     <Cow {...cowProps} />
-  </SvgParent>
+  </SVGParent>
 );
 
 it('renders a Cow component', () => {

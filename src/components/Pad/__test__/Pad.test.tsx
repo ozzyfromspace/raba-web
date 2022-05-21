@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { PadProps } from 'utils/props';
-import { PadId, ResourceTypeName } from 'utils/types';
+import { PadProps } from '../../../utils/props';
+import SVGParent from '../../../utils/SVGParent';
+import { PadId, ResourceTypeName } from '../../../utils/types';
 import Pad from '../Pad';
 
 it('renders the Pad component', () => {
@@ -18,7 +19,9 @@ it('renders the Pad component', () => {
     selected: false,
   };
 
-  render(<Pad {...testPropData} />);
-  const divElement = screen.getByText(/Pad/i);
+  const MockPad = () => (<SVGParent><Pad {...testPropData}  /></SVGParent>)
+
+  render(<MockPad/>);
+  const divElement = screen.getByTestId(testPropData.padId);
   expect(divElement).toBeInTheDocument();
 });

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import SVGParent from 'utils/SVGParent';
 import Background from '../Background';
+import SVGParent from "../../../utils/SVGParent";
 
 it('renders the Background component', () => {
   const ui = (

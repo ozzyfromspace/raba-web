@@ -1,7 +1,7 @@
 // import styles from './Cow.module.scss';
 
-import { CowProps } from 'utils/props';
-import { Player, PlayerColor } from 'utils/types';
+import { CowProps } from "../../utils/props";
+import { Player, PlayerColor } from "../../utils/types";
 
 const Cow = (props: CowProps) => {
   const { centerX, centerY, radius, cowId, owner } = props;
@@ -20,5 +20,7 @@ const Cow = (props: CowProps) => {
     />
   );
 };
+
+
 
 export default Cow;

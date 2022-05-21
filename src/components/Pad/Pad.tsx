@@ -1,6 +1,6 @@
 // import styles from './Pad.module.scss';
 
-import { PadProps } from 'utils/props';
+import { PadProps } from '../../utils/props';
 
 const Pad = (props: PadProps) => {
   const { centerX, centerY, radius, stroke, fill, strokeOpacity, padId } =

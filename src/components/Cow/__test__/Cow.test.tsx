@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { CowProps } from 'utils/props';
 import SvgParent from 'utils/SVGParent';
-import { CowTypeName, Player } from 'utils/types';
+import { CowId, CowTypeName, PadId, Player } from 'utils/types';
 import Cow from '../Cow';
 
 const cowProps: CowProps = {
@@ -9,11 +9,11 @@ const cowProps: CowProps = {
   centerX: 0,
   centerY: 0,
   radius: 24,
-  cowId: 'COW_00',
+  cowId: CowId.COW_00,
   selected: false,
   error: false,
   owner: Player.ONE,
-  padId: 'PAD_00',
+  padId: PadId.PAD_00,
   fill: '#fff',
   stroke: '#808080',
   strokeOpacity: 0.5,

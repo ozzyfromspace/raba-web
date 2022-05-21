@@ -82,15 +82,67 @@ export enum BaseId {
   _06 = '_06',
   _36 = '_36',
   _66 = '_66',
-
 }
 
+export enum PadId {
+  PAD_00 = 'PAD_00',
+  PAD_30 = 'PAD_30',
+  PAD_60 = 'PAD_60',
+  PAD_11 = 'PAD_11',
+  PAD_31 = 'PAD_31',
+  PAD_51 = 'PAD_51',
+  PAD_22 = 'PAD_22',
+  PAD_32 = 'PAD_32',
+  PAD_42 = 'PAD_42',
+  PAD_03 = 'PAD_03',
+  PAD_13 = 'PAD_13',
+  PAD_23 = 'PAD_23',
+  PAD_43 = 'PAD_43',
+  PAD_53 = 'PAD_53',
+  PAD_63 = 'PAD_63',
+  PAD_24 = 'PAD_24',
+  PAD_34 = 'PAD_34',
+  PAD_44 = 'PAD_44',
+  PAD_15 = 'PAD_15',
+  PAD_35 = 'PAD_35',
+  PAD_55 = 'PAD_55',
+  PAD_06 = 'PAD_06',
+  PAD_36 = 'PAD_36',
+  PAD_66 = 'PAD_66',
+}
+
+export enum CowId {
+  COW_00 = 'COW_00',
+  COW_30 = 'COW_30',
+  COW_60 = 'COW_60',
+  COW_11 = 'COW_11',
+  COW_31 = 'COW_31',
+  COW_51 = 'COW_51',
+  COW_22 = 'COW_22',
+  COW_32 = 'COW_32',
+  COW_42 = 'COW_42',
+  COW_03 = 'COW_03',
+  COW_13 = 'COW_13',
+  COW_23 = 'COW_23',
+  COW_43 = 'COW_43',
+  COW_53 = 'COW_53',
+  COW_63 = 'COW_63',
+  COW_24 = 'COW_24',
+  COW_34 = 'COW_34',
+  COW_44 = 'COW_44',
+  COW_15 = 'COW_15',
+  COW_35 = 'COW_35',
+  COW_55 = 'COW_55',
+  COW_06 = 'COW_06',
+  COW_36 = 'COW_36',
+  COW_66 = 'COW_66',
+}
 
 type BaseIdUnion = keyof typeof BaseId;
 
 export type ResourceId<S extends ResourceTypeName> = `${S}${BaseIdUnion}`;
-export type PadId = ResourceId<ResourceTypeName.PAD>;
-export type CowId = ResourceId<ResourceTypeName.COW>;
+// export type PadId = ResourceId<ResourceTypeName.PAD>;
+// export type CowId = ResourceId<ResourceTypeName.COW>;
 
 export interface Pad extends Circle {
   __typename: ResourceTypeName.PAD;

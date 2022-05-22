@@ -34,8 +34,8 @@ export enum CowTypeName {
 }
 
 export type TypeName = keyof (typeof ResourceTypeName &
-  typeof ActionTypeName &
-  typeof PayloadTypeName);
+  typeof GameActionTypeName &
+  typeof GamePayloadTypeName);
 
 export enum BaseId {
   _00 = '_00',
@@ -172,140 +172,146 @@ export type Cow = SafeCow | FreeCow | CapturedCow;
 
 export type PlayerCows = Record<CowId, Cow>;
 
+export type NumberSafeCows =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12;
+
 export type Cows = {
   __typename: ResourceTypeName.COWS;
-  selectedCow: CowId | null;
+  selectedCowId: CowId | null;
+  safeCows: {
+    [Player.ONE]: NumberSafeCows;
+    [Player.TWO]: NumberSafeCows;
+  };
   [Player.ONE]: PlayerCows;
   [Player.TWO]: PlayerCows;
 };
 
 export interface AddCowPayload {
-  __typename: PayloadTypeName.ADD_COW_PAYLOAD;
-  selectedPad: PadId;
+  __typename: GamePayloadTypeName.ADD_COW_PAYLOAD;
+  selectedPadId: PadId;
 }
 
 export interface MoveCowPayload {
-  __typename: PayloadTypeName.MOVE_COW_PAYLOAD;
-  selectedPad: PadId;
+  __typename: GamePayloadTypeName.MOVE_COW_PAYLOAD;
+  selectedPadId: PadId;
 }
 
 export interface CaptureCowPayload {
-  __typename: PayloadTypeName.CAPTURE_COW_PAYLOAD;
-  selectedCow: CowId;
+  __typename: GamePayloadTypeName.CAPTURE_COW_PAYLOAD;
+  selectedCowId: CowId;
 }
 
 export interface CancelCowPayload {
-  __typename: PayloadTypeName.CANCEL_COW_PAYLOAD;
+  __typename: GamePayloadTypeName.CANCEL_COW_PAYLOAD;
 }
 
 export interface SelectCowPayload {
-  __typename: PayloadTypeName.SELECT_COW_PAYLOAD;
-  selectedCow: CowId;
+  __typename: GamePayloadTypeName.SELECT_COW_PAYLOAD;
+  selectedCowId: CowId;
 }
 
 export interface ShowInvalidCowPayload {
-  __typename: PayloadTypeName.SHOW_INVALID_COW_PAYLOAD;
-  selectedCow: CowId;
+  __typename: GamePayloadTypeName.SHOW_INVALID_COW_PAYLOAD;
+  selectedCowId: CowId;
 }
 
 export interface ShowInvalidPadPayload {
-  __typename: PayloadTypeName.SHOW_INVALID_PAD_PAYLOAD;
-  selectedCow: PadId;
+  __typename: GamePayloadTypeName.SHOW_INVALID_PAD_PAYLOAD;
+  selectedCowId: PadId;
 }
 
-export interface SelectPadPayload {
-  __typename: PayloadTypeName.SELECT_PAD_PAYLOAD;
-  selectedCow: null;
-}
-
-export type BaseCowPayload =
+export type BaseGamePayload =
   | AddCowPayload
   | MoveCowPayload
   | CaptureCowPayload
   | CancelCowPayload
   | SelectCowPayload
-  | ShowInvalidCowPayload;
+  | ShowInvalidCowPayload
+  | ShowInvalidPadPayload;
 
 export enum GameStatus {
-  START = 'START',
   ONGOING = 'GAME_ONGOING',
   STALEMATE = 'GAME_STALEMATE',
   VICTORY_P1 = 'PLAYER_ONE_WINS',
   VICTORY_P2 = 'PLAYER_TWO_WINS',
 }
 
-export enum ActionTypeName {
+export enum GameActionTypeName {
   ADD_COW_ACTION = 'ADD_COW_ACTION',
   MOVE_COW_ACTION = 'MOVE_COW_ACTION',
   CAPTURE_COW_ACTION = 'CAPTURE_COW_ACTION',
   CANCEL_COW_ACTION = 'CANCEL_COW_ACTION',
   SELECT_COW_ACTION = 'SELECT_COW_ACTION',
-  SELECT_PAD_ACTION = 'SELECT_PAD_ACTION',
   SHOW_INVALID_COW_ACTION = 'SHOW_INVALID_COW_ACTION',
   SHOW_INVALID_PAD_ACTION = 'SHOW_INVALID_PAD_ACTION',
 }
 
-export enum PayloadTypeName {
+export enum GamePayloadTypeName {
   ADD_COW_PAYLOAD = 'ADD_COW_PAYLOAD',
   MOVE_COW_PAYLOAD = 'MOVE_COW_PAYLOAD',
   CAPTURE_COW_PAYLOAD = 'CAPTURE_COW_PAYLOAD',
   CANCEL_COW_PAYLOAD = 'CANCEL_COW_PAYLOAD',
   SELECT_COW_PAYLOAD = 'SELECT_COW_PAYLOAD',
-  SELECT_PAD_PAYLOAD = 'SELECT_PAD_PAYLOAD',
   SHOW_INVALID_COW_PAYLOAD = 'SHOW_INVALID_COW_PAYLOAD',
   SHOW_INVALID_PAD_PAYLOAD = 'SHOW_INVALID_PAD_PAYLOAD',
 }
 
 interface BaseAction {
-  type: ActionTypeName;
-  payload: BaseCowPayload | ShowInvalidPadPayload | SelectPadPayload;
-}
-
-export interface SelectPadAction extends BaseAction {
-  __typename: ActionTypeName.SELECT_PAD_ACTION;
-  type: ActionTypeName.SELECT_PAD_ACTION;
-  payload: SelectPadPayload;
+  type: GameActionTypeName;
+  payload: BaseGamePayload;
 }
 
 export interface AddCowAction extends BaseAction {
-  __typename: ActionTypeName.ADD_COW_ACTION;
-  type: ActionTypeName.ADD_COW_ACTION;
+  __typename: GameActionTypeName.ADD_COW_ACTION;
+  type: GameActionTypeName.ADD_COW_ACTION;
   payload: AddCowPayload;
 }
 
 export interface MoveCowAction extends BaseAction {
-  __typename: ActionTypeName.MOVE_COW_ACTION;
-  type: ActionTypeName.MOVE_COW_ACTION;
+  __typename: GameActionTypeName.MOVE_COW_ACTION;
+  type: GameActionTypeName.MOVE_COW_ACTION;
   payload: MoveCowPayload;
 }
 
 export interface CaptureCowAction extends BaseAction {
-  __typename: ActionTypeName.CAPTURE_COW_ACTION;
-  type: ActionTypeName.CAPTURE_COW_ACTION;
+  __typename: GameActionTypeName.CAPTURE_COW_ACTION;
+  type: GameActionTypeName.CAPTURE_COW_ACTION;
   payload: CaptureCowPayload;
 }
 
 export interface CancelCowAction extends BaseAction {
-  __typename: ActionTypeName.CANCEL_COW_ACTION;
-  type: ActionTypeName.CANCEL_COW_ACTION;
+  __typename: GameActionTypeName.CANCEL_COW_ACTION;
+  type: GameActionTypeName.CANCEL_COW_ACTION;
   payload: CancelCowPayload;
 }
 
 export interface SelectCowAction extends BaseAction {
-  __typename: ActionTypeName.SELECT_COW_ACTION;
-  type: ActionTypeName.SELECT_COW_ACTION;
+  __typename: GameActionTypeName.SELECT_COW_ACTION;
+  type: GameActionTypeName.SELECT_COW_ACTION;
   payload: SelectCowPayload;
 }
 
 export interface ShowInvalidCowAction extends BaseAction {
-  __typename: ActionTypeName.SHOW_INVALID_COW_ACTION;
-  type: ActionTypeName.SHOW_INVALID_COW_ACTION;
+  __typename: GameActionTypeName.SHOW_INVALID_COW_ACTION;
+  type: GameActionTypeName.SHOW_INVALID_COW_ACTION;
   payload: ShowInvalidCowPayload;
 }
 
 export interface ShowInvalidPadAction extends BaseAction {
-  __typename: ActionTypeName.SHOW_INVALID_PAD_ACTION;
-  type: ActionTypeName.SHOW_INVALID_PAD_ACTION;
+  __typename: GameActionTypeName.SHOW_INVALID_PAD_ACTION;
+  type: GameActionTypeName.SHOW_INVALID_PAD_ACTION;
   payload: ShowInvalidPadPayload;
 }
 
@@ -314,7 +320,9 @@ export type GameAction =
   | MoveCowAction
   | CaptureCowAction
   | CancelCowAction
-  | SelectCowAction;
+  | SelectCowAction
+  | ShowInvalidCowAction
+  | ShowInvalidPadAction;
 
 export interface GameErrors {
   pads: PadId[];
@@ -327,13 +335,23 @@ export interface Game {
   cows: Cows;
   currentPlayer: Player;
   gameStatus: GameStatus;
-  actionStack: ActionTypeName[];
+  actionStack: GameActionTypeName[];
   errors: GameErrors;
 }
 
+export type GameDispatch = React.Dispatch<GameAction>;
+
+export type SelectableId = PadId | CowId;
+
+export type GameActionResolver = (
+  selectableId: SelectableId,
+  game: Game
+) => GameAction | null;
+
 export interface GameProviderValue {
   game: Game;
-  dispatch: null;
+  dispatch: GameDispatch;
+  gameActionResolver: GameActionResolver;
 }
 
 export type InitPads = (padPropsData: PadProps[]) => Pads;
@@ -341,3 +359,4 @@ export type InitGame = () => Game;
 export type InitErrors = () => GameErrors;
 export type InitCows = () => Cows;
 export type GetPlayer = (cowId: CowId) => Player;
+export type GameReducer = (game: Game, action: GameAction) => Game;

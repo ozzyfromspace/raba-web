@@ -14,7 +14,11 @@ const initCows: InitCows = () => {
   const cowIdArray = Object.values(CowId);
   const cowsObjInit = {
     __typename: ResourceTypeName.COWS,
-    selectedCow: null,
+    selectedCowId: null,
+    safeCows: {
+      [Player.ONE]: 12,
+      [Player.TWO]: 12,
+    },
     [Player.ONE]: {} as PlayerCows,
     [Player.TWO]: {} as PlayerCows,
   };

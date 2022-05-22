@@ -1,3 +1,4 @@
+import initActionState from '../../../utils/initActionState';
 import {
   Game,
   GameStatus,
@@ -15,7 +16,7 @@ const initGame: InitGame = () => {
     __typename: ResourceTypeName.GAME,
     pads: initPadsState(padPropsData),
     errors: initErrors(),
-    actionStack: [],
+    actionState: initActionState(),
     currentPlayer: Player.ONE,
     gameStatus: GameStatus.ONGOING,
     cows: initCows(),

@@ -23,7 +23,7 @@ function getPads(padProps: PadProps) {
     selected: padProps.selected,
     stroke: padProps.stroke,
     strokeOpacity: padProps.strokeOpacity,
-    visitingCow: padProps.visitingCow,
+    visitingCowId: padProps.visitingCowId,
   };
   return pad;
 }

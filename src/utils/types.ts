@@ -1,3 +1,4 @@
+import { GameStateMachine } from './operationalStateMachine';
 import { PadProps } from './props';
 
 export enum Player {
@@ -132,7 +133,7 @@ export interface Pad extends Circle {
   radius: number;
   error: boolean;
   selected: boolean;
-  visitingCow: null | CowId;
+  visitingCowId: null | CowId;
 }
 
 export type Pads = {
@@ -187,13 +188,14 @@ export type NumberSafeCows =
   | 11
   | 12;
 
+export interface SafeCows {
+  [Player.ONE]: NumberSafeCows;
+  [Player.TWO]: NumberSafeCows;
+}
+
 export type Cows = {
   __typename: ResourceTypeName.COWS;
-  selectedCowId: CowId | null;
-  safeCows: {
-    [Player.ONE]: NumberSafeCows;
-    [Player.TWO]: NumberSafeCows;
-  };
+  safeCows: SafeCows;
   [Player.ONE]: PlayerCows;
   [Player.TWO]: PlayerCows;
 };
@@ -330,21 +332,29 @@ export interface GameErrors {
   cows: CowId[];
 }
 
+export enum ActionStack {
+  SELECT_COW = 'SELECT_COW', // results
+  MOVE_COW = 'MOVE_COW', // results
+  CAPTURE_COW = 'CAPTURE_COW', // instruction
+}
+
 export interface Game {
   __typename: ResourceTypeName.GAME;
   pads: Pads;
   cows: Cows;
   currentPlayer: Player;
   gameStatus: GameStatus;
-  actionStack: GameActionTypeName[];
+  actionState: GameStateMachine;
   errors: GameErrors;
 }
 
+export interface GamePayload {
+  selectableId: SelectableId;
+};
+
 export interface GameAction {
   __typename: GameActionTypeName.GAME_ACTION;
-  payload: {
-    selectableId: SelectableId;
-  };
+  payload: GamePayload;
 }
 
 export type GameDispatch = React.Dispatch<GameAction>;
@@ -367,5 +377,20 @@ export type InitErrors = () => GameErrors;
 export type InitCows = () => Cows;
 export type GetPlayer = (cowId: CowId) => Player;
 export type GameReducer = (game: Game, action: GameAction) => Game;
-export type CanAddCow = (padId: PadId, game: Game) => boolean;
+
+type ResolverBooleanFn<T extends SelectableId> = (
+  selectableId: T,
+  game: Game
+) => boolean;
+
+// Game Middleware Fn's:
+export type AddCow = (game: Game, payload: AddCowPayload) => Game;
+
+// Resolver Booleans
+export type CanAddCow = ResolverBooleanFn<PadId>;
+export type CanMoveCow = ResolverBooleanFn<PadId>;
+export type CanSelectCow = ResolverBooleanFn<CowId>;
+
+// Resolvers
 export type CanAddCowResolver = (padId: PadId) => AddCowResolvedAction;
+export type CanSelectCowResolver = (cowId: CowId) => SelectCowResolvedAction;

@@ -15,7 +15,7 @@ export interface PadPropsDataDefaults {
   fill: string;
   stroke: string;
   strokeOpacity: number;
-  visitingCow: null;
+  visitingCowId: null;
   selected: boolean;
 }
 

@@ -14,7 +14,6 @@ const initCows: InitCows = () => {
   const cowIdArray = Object.values(CowId);
   const cowsObjInit = {
     __typename: ResourceTypeName.COWS,
-    selectedCowId: null,
     safeCows: {
       [Player.ONE]: 12,
       [Player.TWO]: 12,
@@ -55,7 +54,7 @@ const isValidTray = (playerCows: PlayerCows) => {
   return true;
 };
 
-const getPlayer: GetPlayer = (cowId) => {
+export const getPlayer: GetPlayer = (cowId) => {
   const idMaxIndex = cowId.length - 1;
   const idSum = Number(cowId[idMaxIndex] + cowId[idMaxIndex - 1]);
   if (isNaN(idSum)) throw new Error('Check IDs, something went wrong');

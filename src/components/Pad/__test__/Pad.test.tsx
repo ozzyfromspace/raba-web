@@ -15,7 +15,7 @@ it('renders the Pad component', () => {
     stroke: '#808080',
     strokeOpacity: 0.5,
     padId: PadId.PAD_66,
-    visitingCow: null,
+    visitingCowId: null,
     selected: false,
   };
 

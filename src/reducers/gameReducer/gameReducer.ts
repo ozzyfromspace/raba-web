@@ -1,4 +1,5 @@
 import { GameActionTypeName, GameReducer } from '../../utils/types';
+import { addCow } from './middlewares';
 import gameActionResolver from './resolver/gameActionResolver';
 
 const gameReducer: GameReducer = (game, action) => {
@@ -7,7 +8,7 @@ const gameReducer: GameReducer = (game, action) => {
 
   switch (resolvedAction.type) {
     case GameActionTypeName.ADD_COW_ACTION:
-      return { ...game };
+      return addCow(game, resolvedAction.payload);
 
     case GameActionTypeName.CANCEL_COW_ACTION:
       return game;

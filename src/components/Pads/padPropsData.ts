@@ -9,7 +9,7 @@ const defaultSettings: PadPropsDataDefaults = {
   fill: '#ffffff',
   stroke: '#808080',
   strokeOpacity: 0.5,
-  visitingCow: null,
+  visitingCowId: null,
   selected: false,
 };
 

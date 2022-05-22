@@ -367,3 +367,5 @@ export type InitErrors = () => GameErrors;
 export type InitCows = () => Cows;
 export type GetPlayer = (cowId: CowId) => Player;
 export type GameReducer = (game: Game, action: GameAction) => Game;
+export type CanAddCow = (padId: PadId, game: Game) => boolean;
+export type CanAddCowResolver = (padId: PadId) => AddCowResolvedAction;

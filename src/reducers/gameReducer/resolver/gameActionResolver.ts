@@ -1,7 +1,5 @@
 import {
-  AddCowAction,
-  AddCowPayload,
-  GameActionResolver,
+  AddCowPayload, AddCowResolvedAction, GameActionResolver,
   GameActionTypeName,
   GamePayloadTypeName,
   GameStatus
@@ -25,13 +23,13 @@ const gameActionResolver: GameActionResolver = (selectableId, game) => {
         __typename: GamePayloadTypeName.ADD_COW_PAYLOAD,
         selectedPadId: selectableId,
       };
-      const addCowAction: AddCowAction = {
+      const addCowResolvedAction: AddCowResolvedAction = {
         __typename: GameActionTypeName.ADD_COW_ACTION,
         type: GameActionTypeName.ADD_COW_ACTION,
         payload: addCowPayload,
       };
 
-      return addCowAction;
+      return addCowResolvedAction;
     }
   }
 

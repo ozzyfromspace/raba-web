@@ -1,19 +1,20 @@
 // import styles from './Pad.module.scss';
 
 import { PadProps } from '../../utils/props';
+import { GameAction, GameActionTypeName, PadId } from '../../utils/types';
 import { useGame } from '../GameProvider/GameProvider';
 
 const Pad = (props: PadProps) => {
   const { centerX, centerY, radius, stroke, fill, strokeOpacity, padId } =
     props;
 
-  const { game, dispatch: gameDispatch, gameActionResolver } = useGame();
+  const { dispatch: gameDispatch } = useGame();
 
-  const sendToGameReducer = () => {
-    const action = gameActionResolver(padId, game);
-
-    if (action === null) return;
-
+  const sendToGameReducer = (padId: PadId) => () => {
+    const action: GameAction = {
+      __typename: GameActionTypeName.GAME_ACTION,
+      payload: { selectableId: padId },
+    };
     gameDispatch(action);
   };
 
@@ -27,7 +28,7 @@ const Pad = (props: PadProps) => {
       fill={fill}
       stroke={stroke}
       strokeOpacity={strokeOpacity}
-      onClick={sendToGameReducer}
+      onClick={sendToGameReducer(padId)}
     />
   );
 };

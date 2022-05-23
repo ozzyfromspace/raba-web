@@ -3,9 +3,7 @@ import {
   PadId,
   ResourceTypeName,
 } from '../../../utils/types';
-import { getAllOwnerCows } from '../utils';
-import getAllFreeCows from '../utils/getAllFreeCows';
-import getRefBaseIdArray from '../utils/getRefBaseIdArray';
+import { getAllFreeCows, getAllOwnerCows, getRefBaseIdArray } from '../utils';
 
 const isInVerticalLine: IsInVerticalLine = (
   cowOwner,

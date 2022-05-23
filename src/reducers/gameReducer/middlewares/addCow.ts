@@ -1,6 +1,6 @@
 import { AddCow, Game } from '../../../utils/types';
-import isInVerticalLine from '../lineDetector/isInVerticalLine';
-import computeNextData_AddCow from '../utils/computeNextData_AddCow';
+import { isInVerticalLine } from '../lineDetector';
+import { computeNextData_AddCow } from '../utils';
 
 const addCow: AddCow = (game, payload) => {
   const computedData = computeNextData_AddCow(game, payload);

@@ -340,6 +340,11 @@ export enum ActionStack {
   CAPTURE_COW = 'CAPTURE_COW', // instruction
 }
 
+export interface PlayerCowsObject {
+  [Player.ONE]: PlayerCows;
+  [Player.TWO]: PlayerCows;
+}
+
 export interface Game {
   __typename: ResourceTypeName.GAME;
   pads: Pads;
@@ -352,7 +357,7 @@ export interface Game {
 
 export interface GamePayload {
   selectableId: SelectableId;
-};
+}
 
 export interface GameAction {
   __typename: GameActionTypeName.GAME_ACTION;
@@ -379,7 +384,10 @@ export type InitErrors = () => GameErrors;
 export type InitCows = () => Cows;
 export type GetPlayer = (cowId: CowId) => Player;
 export type GameReducer = (game: Game, action: GameAction) => Game;
-export type IsInVerticalLine = (cowId: CowId, game: Game, addedCow: Cow, newPads: Pads, padId: PadId) => {result: boolean, matches: CowId[]}
+export type IsInVerticalLine = (cowOwner: Player, nextCows: Cows, nextPads: Pads, padId: PadId) => {
+  result: boolean;
+  matches: CowId[];
+};
 
 // Game Middleware Fn's:
 export type AddCow = (game: Game, payload: AddCowPayload) => Game;
@@ -397,3 +405,14 @@ export type CanSelectCow = ResolverBooleanFn<CowId>;
 // Resolvers
 export type CanAddCowResolver = (padId: PadId) => AddCowResolvedAction;
 export type CanSelectCowResolver = (cowId: CowId) => SelectCowResolvedAction;
+
+export interface NextData_AddCow {
+  cowOwner: Player;
+  nextPads: Pads;
+  nextCows: Cows;
+  nextActionState: GameStateMachine;
+  nextErrors: GameErrors;
+  nextPlayer: Player;
+  nextGameStatus: GameStatus;
+  nextTypename: ResourceTypeName.GAME;
+}

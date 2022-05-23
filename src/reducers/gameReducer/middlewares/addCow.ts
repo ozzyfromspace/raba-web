@@ -10,8 +10,9 @@ import {
   Pads,
   Player,
   PlayerCows,
-  SafeCows
+  SafeCows,
 } from '../../../utils/types';
+import isInVerticalLine from '../lineDetector/isInVerticalLine';
 
 const addCow: AddCow = (game, payload) => {
   const padId = payload.selectedPadId;
@@ -25,6 +26,7 @@ const addCow: AddCow = (game, payload) => {
     centerX: game.pads[padId].centerX,
     centerY: game.pads[padId].centerY,
   };
+
   const modifiedPad: Pad = {
     ...game.pads[padId],
     visitingCowId: addedCow.cowId,
@@ -84,6 +86,10 @@ const addCow: AddCow = (game, payload) => {
     actionState: newActionState,
   };
 
+  console.log(
+    'result',
+    isInVerticalLine(addedCow.cowId, game, addedCow, newPads, padId)
+  );
   return newGame;
 };
 

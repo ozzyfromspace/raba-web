@@ -188,6 +188,8 @@ export type NumberSafeCows =
   | 11
   | 12;
 
+export type BoardDigits = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
 export interface SafeCows {
   [Player.ONE]: NumberSafeCows;
   [Player.TWO]: NumberSafeCows;
@@ -377,16 +379,17 @@ export type InitErrors = () => GameErrors;
 export type InitCows = () => Cows;
 export type GetPlayer = (cowId: CowId) => Player;
 export type GameReducer = (game: Game, action: GameAction) => Game;
-
-type ResolverBooleanFn<T extends SelectableId> = (
-  selectableId: T,
-  game: Game
-) => boolean;
+export type IsInVerticalLine = (cowId: CowId, game: Game, addedCow: Cow, newPads: Pads, padId: PadId) => {result: boolean, matches: CowId[]}
 
 // Game Middleware Fn's:
 export type AddCow = (game: Game, payload: AddCowPayload) => Game;
 
 // Resolver Booleans
+type ResolverBooleanFn<T extends SelectableId> = (
+  selectableId: T,
+  game: Game
+) => boolean;
+
 export type CanAddCow = ResolverBooleanFn<PadId>;
 export type CanMoveCow = ResolverBooleanFn<PadId>;
 export type CanSelectCow = ResolverBooleanFn<CowId>;

@@ -7,8 +7,13 @@ export enum Player {
 }
 
 export enum PlayerColor {
-  ONE = '#ff007b',
-  TWO = '#006eff',
+  ONE = '#fa66ab',
+  TWO = '#4299df',
+}
+
+export enum PlayerColorOnPad {
+  ONE = '#ff207b',
+  TWO = '#206eff',
 }
 
 export interface Circle {

@@ -1,11 +1,29 @@
 // import styles from './Cow.module.scss';
 
-import { CowProps } from "../../utils/props";
-import { Player, PlayerColor } from "../../utils/types";
+import { CowProps } from '../../utils/props';
+import {
+  CowTypeName,
+  Player,
+  PlayerColor,
+  PlayerColorOnPad
+} from '../../utils/types';
+import { useGame } from '../GameProvider/GameProvider';
 
 const Cow = (props: CowProps) => {
+  const { game } = useGame();
   const { centerX, centerY, radius, cowId, owner } = props;
-  const fillColor = owner === Player.ONE ? PlayerColor.ONE : PlayerColor.TWO;
+  const defaultFillColor =
+    owner === Player.ONE ? PlayerColor.ONE : PlayerColor.TWO;
+
+  const cow = game.cows[owner][cowId];
+  const cowOnPad =
+    cow.__typename === CowTypeName.FREE_COW && game.glowing.pads.has(cow.padId);
+
+  const fillColor = cowOnPad
+    ? cow.owner === Player.ONE
+      ? PlayerColorOnPad.ONE
+      : PlayerColorOnPad.TWO
+    : defaultFillColor;
 
   return (
     <circle
@@ -19,7 +37,5 @@ const Cow = (props: CowProps) => {
     />
   );
 };
-
-
 
 export default Cow;

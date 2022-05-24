@@ -3,14 +3,15 @@ import {
   getAllFreeCows,
   getAllOwnerCows,
   getLineMatchData,
-  getVerticalBaseArrayData,
+  getVerticalBaseArrayData
 } from '../utils';
 
 const isInVerticalLine: IsInLine = (cowOwner, nextCows, nextPads, padId) => {
   const allOwnerCows = getAllOwnerCows(cowOwner, nextCows);
   const { baseId, refArray } = getVerticalBaseArrayData(padId);
   const freeCows = getAllFreeCows(allOwnerCows);
-  const lineDescription: LineDescription = {
+
+  const lineDescription: LineDescription<true> = {
     lineDirection: LineDirection.VERTICAL,
     baseId,
   };
@@ -21,6 +22,7 @@ const isInVerticalLine: IsInLine = (cowOwner, nextCows, nextPads, padId) => {
     nextPads,
     lineDescription
   );
+
   return result;
 };
 

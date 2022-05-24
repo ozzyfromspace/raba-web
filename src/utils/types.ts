@@ -423,31 +423,40 @@ export enum DiagonalLineBaseId {
 export type LineDescription<T extends boolean=true> =
 | {
   lineDirection: LineDirection.VERTICAL;
-  baseId: T ? VerticalLineBaseId : null;
+  baseId: T extends true ? VerticalLineBaseId : null;
 }
 | {
   lineDirection: LineDirection.HORIZONTAL;
-  baseId: HorizontalLineBaseId;
+  baseId:  T extends true ? HorizontalLineBaseId : null;
 }
 | {
   lineDirection: LineDirection.DIAGONAL;
-  baseId: DiagonalLineBaseId;
+  baseId:  T extends true ? DiagonalLineBaseId : null;
 };
+
+export type IsInLineReturnType =  {
+  result: false;
+  lineDescription: LineDescription<false>;
+  matches: [];
+} | {
+  result: true;
+  lineDescription: LineDescription<true>;
+  matches: CowId[];
+};
+
+export type GetLineMatchDataFn = (
+  refArray: BaseId[],
+  freeCows: Cow[],
+  nextPads: Pads,
+  lineDescription: LineDescription<true>
+) => IsInLineReturnType;
 
 export type IsInLine = (
   cowOwner: Player,
   nextCows: Cows,
   nextPads: Pads,
   padId: PadId
-) => {
-  result: false;
-  lineDescription: LineDescription;
-  matches: never[];
-} | {
-  result: true;
-  lineDescription: LineDescription<false>;
-  matches: CowId[];
-};
+) => IsInLineReturnType;
 
 // Game Middleware Fn's:
 export type AddCow = (game: Game, payload: AddCowPayload) => Game;

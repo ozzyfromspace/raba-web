@@ -1,19 +1,18 @@
 import {
-  BaseId,
-  Cow,
   CowId,
+  GetLineMatchDataFn,
   LineDescription,
+  LineDirection,
   PadId,
-  Pads,
-  ResourceTypeName
+  ResourceTypeName,
 } from '../../../utils/types';
 
-const getLineMatchData = (
-  refArray: BaseId[],
-  freeCows: Cow[],
-  nextPads: Pads,
-  lineDescription: LineDescription
-): { result: false, lineDescription:  } | {result: true, lineDescription: LineDescription, matches: CowId[]} => {
+const getLineMatchData: GetLineMatchDataFn = (
+  refArray,
+  freeCows,
+  nextPads,
+  lineDescription
+) => {
   const matches: CowId[] = [];
 
   for (const refBaseId of refArray) {
@@ -30,13 +29,19 @@ const getLineMatchData = (
     }
 
     if (!pass) {
+      const lineDescription: LineDescription<false> = {
+        lineDirection: LineDirection.HORIZONTAL,
+        baseId: null,
+      };
+
       return {
         result: false,
-        lineDescription: null,
+        lineDescription,
         matches: [],
       };
     }
   }
+
   return {
     result: true,
     lineDescription,

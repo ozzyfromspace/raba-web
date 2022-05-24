@@ -1,17 +1,23 @@
-import getSafeCow from './getSafeCow';
+import computeNextData_AddCow from './computeNextData_AddCow';
 import freeCowFilter from './freeCowFilter';
 import getAllFreeCows from './getAllFreeCows';
 import getAllOwnerCows from './getAllOwnerCows';
+import getDiagonalBaseArrayData from './getDiagonalBaseArrayData';
+import getHorizontalBaseArrayData from './getHorizontalBaseArrayData';
+import getLineMatchData from './getLineMatchData';
 import getOwnerByCowId from './getOwnerByCowId';
-import getRefBaseIdArray from './getRefBaseIdArray';
-import computeNextData_AddCow from './computeNextData_AddCow';
+import getSafeCow from './getSafeCow';
+import getVerticalBaseArrayData from './getVerticalBaseArrayData';
 
 export {
   getSafeCow,
+  freeCowFilter,
   getAllFreeCows,
   getAllOwnerCows,
   getOwnerByCowId,
-  getRefBaseIdArray,
-  freeCowFilter,
-  computeNextData_AddCow
+  getLineMatchData,
+  computeNextData_AddCow,
+  getVerticalBaseArrayData,
+  getDiagonalBaseArrayData,
+  getHorizontalBaseArrayData,
 };

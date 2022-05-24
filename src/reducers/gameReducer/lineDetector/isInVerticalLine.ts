@@ -1,46 +1,27 @@
+import { IsInLine, LineDescription, LineDirection } from '../../../utils/types';
 import {
-  IsInVerticalLine,
-  PadId,
-  ResourceTypeName,
-} from '../../../utils/types';
-import { getAllFreeCows, getAllOwnerCows, getRefBaseIdArray } from '../utils';
+  getAllFreeCows,
+  getAllOwnerCows,
+  getLineMatchData,
+  getVerticalBaseArrayData,
+} from '../utils';
 
-const isInVerticalLine: IsInVerticalLine = (
-  cowOwner,
-  nextCows,
-  newPads,
-  padId
-) => {
+const isInVerticalLine: IsInLine = (cowOwner, nextCows, nextPads, padId) => {
   const allOwnerCows = getAllOwnerCows(cowOwner, nextCows);
-
-  const refBaseIdArray = getRefBaseIdArray(padId);
+  const { baseId, refArray } = getVerticalBaseArrayData(padId);
   const freeCows = getAllFreeCows(allOwnerCows);
-  const matches = [];
-
-  for (const refBaseId of refBaseIdArray) {
-    let pass = false;
-    const refPadId: PadId = PadId[`${ResourceTypeName.PAD}${refBaseId}`];
-    const testPad = newPads[refPadId];
-
-    for (const cow of freeCows) {
-      if (testPad.visitingCowId === cow.cowId) {
-        matches.push(cow.cowId);
-        pass = true;
-        break;
-      }
-    }
-
-    if (!pass) {
-      return {
-        result: false,
-        matches: [],
-      };
-    }
-  }
-  return {
-    result: true,
-    matches,
+  const lineDescription: LineDescription = {
+    lineDirection: LineDirection.VERTICAL,
+    baseId,
   };
+
+  const result = getLineMatchData(
+    refArray,
+    freeCows,
+    nextPads,
+    lineDescription
+  );
+  return result;
 };
 
 export default isInVerticalLine;

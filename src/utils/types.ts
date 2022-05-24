@@ -384,8 +384,68 @@ export type InitErrors = () => GameErrors;
 export type InitCows = () => Cows;
 export type GetPlayer = (cowId: CowId) => Player;
 export type GameReducer = (game: Game, action: GameAction) => Game;
-export type IsInVerticalLine = (cowOwner: Player, nextCows: Cows, nextPads: Pads, padId: PadId) => {
-  result: boolean;
+
+export enum LineDirection {
+  VERTICAL = 'VERTICAL',
+  DIAGONAL = 'DIAGONAL',
+  HORIZONTAL = 'HORIZONTAL',
+}
+
+export enum VerticalLineBaseId {
+  _0 = '_00',
+  _1 = '_11',
+  _2 = '_22',
+  _4 = '_42',
+  _5 = '_51',
+  _6 = '_60',
+  _30 = '_30',
+  _34 = '_34',
+}
+
+export enum HorizontalLineBaseId {
+  _0 = '_00',
+  _1 = '_11',
+  _2 = '_22',
+  _4 = '_24',
+  _5 = '_15',
+  _6 = '_60',
+  _03 = '_03',
+  _43 = '_43',
+}
+
+export enum DiagonalLineBaseId {
+  _00 = '_00',
+  _60 = '_60',
+  _66 = '_66',
+  _06 = '_06',
+}
+
+export type LineDescription<T extends boolean=true> =
+| {
+  lineDirection: LineDirection.VERTICAL;
+  baseId: T ? VerticalLineBaseId : null;
+}
+| {
+  lineDirection: LineDirection.HORIZONTAL;
+  baseId: HorizontalLineBaseId;
+}
+| {
+  lineDirection: LineDirection.DIAGONAL;
+  baseId: DiagonalLineBaseId;
+};
+
+export type IsInLine = (
+  cowOwner: Player,
+  nextCows: Cows,
+  nextPads: Pads,
+  padId: PadId
+) => {
+  result: false;
+  lineDescription: LineDescription;
+  matches: never[];
+} | {
+  result: true;
+  lineDescription: LineDescription<false>;
   matches: CowId[];
 };
 

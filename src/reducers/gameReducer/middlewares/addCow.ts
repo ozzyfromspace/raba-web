@@ -1,5 +1,9 @@
 import { AddCow, Game } from '../../../utils/types';
-import { isInVerticalLine } from '../lineDetector';
+import {
+  isInDiagonalLine,
+  isInHorizontalLine,
+  isInVerticalLine
+} from '../lineDetector';
 import { computeNextData_AddCow } from '../utils';
 
 const addCow: AddCow = (game, payload) => {
@@ -22,7 +26,23 @@ const addCow: AddCow = (game, payload) => {
     payload.selectedPadId
   );
 
-  console.log('[Vertical]:', vertical.result);
+  const horizontal = isInHorizontalLine(
+    computedData.cowOwner,
+    computedData.nextCows,
+    computedData.nextPads,
+    payload.selectedPadId
+  );
+
+  const diagonal = isInDiagonalLine(
+    computedData.cowOwner,
+    computedData.nextCows,
+    computedData.nextPads,
+    payload.selectedPadId
+  );
+
+  console.log('[VERTICAL]:', vertical);
+  console.log('[HORIZONTAL]:', horizontal);
+  console.log('[DIAGONAL]:', diagonal);
   return nextGame;
 };
 

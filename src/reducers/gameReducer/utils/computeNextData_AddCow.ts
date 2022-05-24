@@ -6,8 +6,7 @@ import {
   FreeCow,
   Game,
   GameErrors,
-  GameStatus,
-  NextData_AddCow,
+  GameStatus, NextData_AddCow,
   NumberSafeCows,
   Pad,
   Pads,
@@ -16,6 +15,7 @@ import {
   ResourceTypeName,
   SafeCows
 } from '../../../utils/types';
+import computeNextGlowingState from "./computeNextGlowingSet";
 import getSafeCow from './getSafeCow';
 
 const computeNextData_AddCow = (
@@ -57,6 +57,10 @@ const computeNextData_AddCow = (
     [game.currentPlayer]: nextPlayerCows,
   };
 
+
+
+  const nextGlowing = computeNextGlowingState(nextCows, nextPads);
+
   // make end a boolean depending on LINE once you've written that code
   const nextActionState: GameStateMachine = {
     ...game.actionState,
@@ -79,6 +83,7 @@ const computeNextData_AddCow = (
   const nextGameStatus = GameStatus.ONGOING;
 
   return {
+    nextGlowing,
     cowOwner,
     nextPads,
     nextCows,

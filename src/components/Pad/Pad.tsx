@@ -1,12 +1,21 @@
-// import styles from './Pad.module.scss';
-
 import { PadProps } from '../../utils/props';
 import { GameAction, GameActionTypeName, PadId } from '../../utils/types';
+import { getPlayer } from '../Cows/utils/initCows';
 import { useGame } from '../GameProvider/GameProvider';
+import styles from './Pad.module.scss';
 
 const Pad = (props: PadProps) => {
-  const { centerX, centerY, radius, stroke, fill, strokeOpacity, padId } =
-    props;
+  const {
+    centerX,
+    centerY,
+    radius,
+    stroke,
+    fill,
+    strokeOpacity,
+    padId,
+    isGlowing,
+    visitingCowId,
+  } = props;
 
   const { dispatch: gameDispatch } = useGame();
 
@@ -18,8 +27,13 @@ const Pad = (props: PadProps) => {
     gameDispatch(action);
   };
 
+  const visitingPlayer = !!visitingCowId && getPlayer(visitingCowId);
+
+  const glow = isGlowing && visitingPlayer ? styles[`pad-glow-${visitingPlayer}`] : '';
+
   return (
     <circle
+      className={glow}
       id={padId}
       data-testid={padId}
       cx={centerX}

@@ -6,7 +6,9 @@ export interface SVGParentProps {
   children: React.ReactNode;
 }
 
-export interface PadProps extends Pad {}
+export interface PadProps extends Pad {
+  isGlowing: boolean;
+}
 
 export interface PadPropsDataDefaults {
   __typename: ResourceTypeName.PAD;
@@ -17,6 +19,7 @@ export interface PadPropsDataDefaults {
   strokeOpacity: number;
   visitingCowId: null;
   selected: boolean;
+  isGlowing: boolean;
 }
 
 export interface SafeCowDefaults {

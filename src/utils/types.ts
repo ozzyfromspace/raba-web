@@ -7,8 +7,8 @@ export enum Player {
 }
 
 export enum PlayerColor {
-  ONE = '#ff0000',
-  TWO = '#0000ff',
+  ONE = '#ff007b',
+  TWO = '#006eff',
 }
 
 export interface Circle {
@@ -345,6 +345,27 @@ export interface PlayerCowsObject {
   [Player.TWO]: PlayerCows;
 }
 
+export enum LineDirection {
+  VERTICAL = 'VERTICAL',
+  DIAGONAL = 'DIAGONAL',
+  HORIZONTAL = 'HORIZONTAL',
+}
+
+export interface GlowingLines {
+  [LineDirection.HORIZONTAL]: Set<HorizontalLineBaseId>;
+  [LineDirection.VERTICAL]: Set<VerticalLineBaseId>;
+  [LineDirection.DIAGONAL]: Set<DiagonalLineBaseId>;
+}
+
+export interface Glowing {
+  pads: Set<PadId>;
+  lines: GlowingLines;
+}
+
+export type InitGlowing = () => Glowing;
+
+export type ComputeNextGlowingState = (nextCows: Cows, nextPads: Pads) => Glowing;
+
 export interface Game {
   __typename: ResourceTypeName.GAME;
   pads: Pads;
@@ -353,6 +374,7 @@ export interface Game {
   gameStatus: GameStatus;
   actionState: GameStateMachine;
   errors: GameErrors;
+  glowing: Glowing;
 }
 
 export interface GamePayload {
@@ -385,12 +407,6 @@ export type InitCows = () => Cows;
 export type GetPlayer = (cowId: CowId) => Player;
 export type GameReducer = (game: Game, action: GameAction) => Game;
 
-export enum LineDirection {
-  VERTICAL = 'VERTICAL',
-  DIAGONAL = 'DIAGONAL',
-  HORIZONTAL = 'HORIZONTAL',
-}
-
 export enum VerticalLineBaseId {
   _0 = '_00',
   _1 = '_11',
@@ -420,29 +436,31 @@ export enum DiagonalLineBaseId {
   _06 = '_06',
 }
 
-export type LineDescription<T extends boolean=true> =
-| {
-  lineDirection: LineDirection.VERTICAL;
-  baseId: T extends true ? VerticalLineBaseId : null;
-}
-| {
-  lineDirection: LineDirection.HORIZONTAL;
-  baseId:  T extends true ? HorizontalLineBaseId : null;
-}
-| {
-  lineDirection: LineDirection.DIAGONAL;
-  baseId:  T extends true ? DiagonalLineBaseId : null;
-};
+export type LineDescription<T extends boolean = true> =
+  | {
+      lineDirection: LineDirection.VERTICAL;
+      baseId: T extends true ? VerticalLineBaseId : null;
+    }
+  | {
+      lineDirection: LineDirection.HORIZONTAL;
+      baseId: T extends true ? HorizontalLineBaseId : null;
+    }
+  | {
+      lineDirection: LineDirection.DIAGONAL;
+      baseId: T extends true ? DiagonalLineBaseId : null;
+    };
 
-export type IsInLineReturnType =  {
-  result: false;
-  lineDescription: LineDescription<false>;
-  matches: [];
-} | {
-  result: true;
-  lineDescription: LineDescription<true>;
-  matches: CowId[];
-};
+export type IsInLineReturnType =
+  | {
+      result: false;
+      lineDescription: LineDescription<false>;
+      matches: [];
+    }
+  | {
+      result: true;
+      lineDescription: LineDescription<true>;
+      matches: CowId[];
+    };
 
 export type GetLineMatchDataFn = (
   refArray: BaseId[],
@@ -453,9 +471,9 @@ export type GetLineMatchDataFn = (
 
 export type IsInLine = (
   cowOwner: Player,
+  cowId: CowId,
   nextCows: Cows,
-  nextPads: Pads,
-  padId: PadId
+  nextPads: Pads
 ) => IsInLineReturnType;
 
 // Game Middleware Fn's:
@@ -476,6 +494,7 @@ export type CanAddCowResolver = (padId: PadId) => AddCowResolvedAction;
 export type CanSelectCowResolver = (cowId: CowId) => SelectCowResolvedAction;
 
 export interface NextData_AddCow {
+  nextGlowing: Glowing;
   cowOwner: Player;
   nextPads: Pads;
   nextCows: Cows;

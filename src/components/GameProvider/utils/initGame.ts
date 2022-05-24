@@ -1,15 +1,16 @@
+import initErrors from '../../../reducers/gameReducer/utils/initErrors';
 import initActionState from '../../../utils/initActionState';
 import {
   Game,
   GameStatus,
-  InitErrors,
   InitGame,
   Player,
-  ResourceTypeName
+  ResourceTypeName,
 } from '../../../utils/types';
 import initCows from '../../Cows/utils/initCows';
 import { padPropsData } from '../../Pads/padPropsData';
 import initPadsState from '../../Pads/utils/initPads';
+import initGlowing from './initGlowing';
 
 const initGame: InitGame = () => {
   const initGameState: Game = {
@@ -20,11 +21,10 @@ const initGame: InitGame = () => {
     currentPlayer: Player.ONE,
     gameStatus: GameStatus.ONGOING,
     cows: initCows(),
+    glowing: initGlowing(),
   };
 
   return initGameState;
 };
-
-const initErrors: InitErrors = () => ({ cows: [], pads: [] });
 
 export default initGame;

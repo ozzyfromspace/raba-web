@@ -11,6 +11,7 @@ const defaultSettings: PadPropsDataDefaults = {
   strokeOpacity: 0.5,
   visitingCowId: null,
   selected: false,
+  isGlowing: false,
 };
 
 export const padPropsData: PadProps[] = [

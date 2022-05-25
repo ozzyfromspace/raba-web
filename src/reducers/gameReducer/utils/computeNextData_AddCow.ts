@@ -1,4 +1,4 @@
-import { GameStateMachine } from '../../../utils/operationalStateMachine';
+import { PlayOperation, PlayState } from '../../../utils/PlayState';
 import {
   AddCowPayload,
   Cows,
@@ -6,7 +6,8 @@ import {
   FreeCow,
   Game,
   GameErrors,
-  GameStatus, NextData_AddCow,
+  GameStatus,
+  NextData_AddCow,
   NumberSafeCows,
   Pad,
   Pads,
@@ -15,7 +16,7 @@ import {
   ResourceTypeName,
   SafeCows
 } from '../../../utils/types';
-import computeNextGlowingState from "./computeNextGlowingSet";
+import computeNextGlowingState from './computeNextGlowingSet';
 import getSafeCow from './getSafeCow';
 
 const computeNextData_AddCow = (
@@ -57,18 +58,25 @@ const computeNextData_AddCow = (
     [game.currentPlayer]: nextPlayerCows,
   };
 
-
-
   const nextGlowing = computeNextGlowingState(nextCows, nextPads);
 
-  // make end a boolean depending on LINE once you've written that code
-  const nextActionState: GameStateMachine = {
-    ...game.actionState,
-    // __typename: GameState.ADD_COW,
-    // end: true,
-    // prevState: [GameState.INITIAL_STATE],
-    // },
+  const initialPlayState: PlayState<true> = {
+    done: true,
+    __typename: PlayOperation.ADD_COW,
+    lastOperation: PlayOperation.INITIAL_STATE,
+    nextOperation: null,
   };
+
+  const addCapturePlayState: PlayState = {
+    done: false,
+    __typename: PlayOperation.ADD_COW,
+    lastOperation: PlayOperation.INITIAL_STATE,
+    nextOperation: PlayOperation.ADD_CAPTURE_COW,
+  };
+
+  const nextPlayState: PlayState = nextGlowing.pads.has(payload.selectedPadId)
+    ? initialPlayState
+    : addCapturePlayState;
 
   const nextPlayer: Player =
     game.currentPlayer === Player.ONE ? Player.TWO : Player.ONE;
@@ -87,11 +95,11 @@ const computeNextData_AddCow = (
     cowOwner,
     nextPads,
     nextCows,
-    nextActionState,
+    nextPlayState,
     nextErrors,
     nextPlayer,
     nextTypename,
-    nextGameStatus
+    nextGameStatus,
   };
 };
 

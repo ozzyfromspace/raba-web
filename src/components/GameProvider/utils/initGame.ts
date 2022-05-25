@@ -1,5 +1,5 @@
 import initErrors from '../../../reducers/gameReducer/utils/initErrors';
-import initActionState from '../../../utils/initActionState';
+import initPlayState from '../../../utils/initPlayState';
 import {
   Game,
   GameStatus,
@@ -17,7 +17,7 @@ const initGame: InitGame = () => {
     __typename: ResourceTypeName.GAME,
     pads: initPadsState(padPropsData),
     errors: initErrors(),
-    actionState: initActionState(),
+    playState: initPlayState(),
     currentPlayer: Player.ONE,
     gameStatus: GameStatus.ONGOING,
     cows: initCows(),

@@ -10,7 +10,7 @@ const addCow: AddCow = (game, payload) => {
     cows: computedData.nextCows,
     errors: computedData.nextErrors,
     currentPlayer: computedData.nextPlayer,
-    actionState: computedData.nextActionState,
+    playState: computedData.nextPlayState,
     gameStatus: computedData.nextGameStatus,
     glowing: computedData.nextGlowing,
   };

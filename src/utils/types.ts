@@ -1,4 +1,5 @@
-import { GameStateMachine } from './operationalStateMachine';
+import { PadGraphArray } from './padsGraphArray';
+import { PlayState } from './PlayState';
 import { PadProps } from './props';
 
 export enum Player {
@@ -141,11 +142,23 @@ export interface Pad extends Circle {
   visitingCowId: null | CowId;
 }
 
+
+
 export type Pads = {
   __typename: ResourceTypeName.PADS;
+  padGraphs: PadGraphArray;
 } & {
   [Property in PadId]: Pad;
 };
+
+export interface GraphSchema<T extends PadId> {
+  root: T;
+  children: readonly T[];
+}
+
+export type PadGraph = GraphSchema<PadId>;
+
+export type GetPadGraphByRootId = (rootId: PadId, padGraphs: PadGraphArray) => PadGraph;
 
 interface BaseCow extends Circle {
   __typename: CowTypeName;
@@ -377,7 +390,7 @@ export interface Game {
   cows: Cows;
   currentPlayer: Player;
   gameStatus: GameStatus;
-  actionState: GameStateMachine;
+  playState: PlayState;
   errors: GameErrors;
   glowing: Glowing;
 }
@@ -405,7 +418,16 @@ export interface GameProviderValue {
   dispatch: GameDispatch;
 }
 
+export type AssertPadsObject = (padsPartialObject: PartialPads) => asserts padsPartialObject is Pads;
+
+export type CreateInitPadsObject = (
+  finObj: PartialPads,
+  pad: Pad
+) => PartialPads;
+
+export type PartialPads = Partial<Pads>;
 export type InitPads = (padPropsData: PadProps[]) => Pads;
+export type InitPartialPads = (padPropsData: PadProps[]) => PartialPads;
 export type InitGame = () => Game;
 export type InitErrors = () => GameErrors;
 export type InitCows = () => Cows;
@@ -503,9 +525,12 @@ export interface NextData_AddCow {
   cowOwner: Player;
   nextPads: Pads;
   nextCows: Cows;
-  nextActionState: GameStateMachine;
+  nextPlayState: PlayState;
   nextErrors: GameErrors;
   nextPlayer: Player;
   nextGameStatus: GameStatus;
   nextTypename: ResourceTypeName.GAME;
 }
+
+export type IsCowTrapped = (cowId: CowId, padGraph: PadGraph, pads: Pads) => boolean;
+export type IsCowProtected = (cowId: CowId, owner: Player, game: Game) => boolean;

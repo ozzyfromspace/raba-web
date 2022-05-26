@@ -1,28 +1,21 @@
 import { PlayOperation, PlayState } from '../../../utils/PlayState';
 import {
-  AddCowPayload,
   Cows,
   CowTypeName,
   FreeCow,
-  Game,
   GameErrors,
-  GameStatus,
-  NextData_AddCow,
+  NextData_AddCowFn,
   NumberSafeCows,
   Pad,
   Pads,
-  Player,
   PlayerCows,
-  ResourceTypeName,
-  SafeCows
+  SafeCows,
 } from '../../../utils/types';
 import computeNextGlowingState from './computeNextGlowingSet';
+import getNextGameStatus from './getNextGameStatus';
 import getSafeCow from './getSafeCow';
 
-const computeNextData_AddCow = (
-  game: Game,
-  payload: AddCowPayload
-): NextData_AddCow => {
+const computeNextData_AddCow: NextData_AddCowFn = (game, payload) => {
   const padId = payload.selectedPadId;
   const foundCow = getSafeCow(game.cows[game.currentPlayer]);
   const addedCow: FreeCow = {
@@ -67,28 +60,23 @@ const computeNextData_AddCow = (
     nextOperation: null,
   };
 
-  const addCapturePlayState: PlayState = {
+  const addCapturePlayState: PlayState<false> = {
     done: false,
     __typename: PlayOperation.ADD_COW,
     lastOperation: PlayOperation.INITIAL_STATE,
     nextOperation: PlayOperation.ADD_CAPTURE_COW,
   };
 
-  const nextPlayState: PlayState = nextGlowing.pads.has(payload.selectedPadId)
+  const nextPlayState: PlayState = !nextGlowing.pads.has(padId)
     ? initialPlayState
     : addCapturePlayState;
-
-  const nextPlayer: Player =
-    game.currentPlayer === Player.ONE ? Player.TWO : Player.ONE;
 
   const nextErrors: GameErrors = {
     pads: [],
     cows: [],
   };
 
-  const nextTypename = ResourceTypeName.GAME;
-
-  const nextGameStatus = GameStatus.ONGOING;
+  const nextGameStatus = getNextGameStatus(nextCows, nextGlowing);
 
   return {
     nextGlowing,
@@ -97,8 +85,6 @@ const computeNextData_AddCow = (
     nextCows,
     nextPlayState,
     nextErrors,
-    nextPlayer,
-    nextTypename,
     nextGameStatus,
   };
 };

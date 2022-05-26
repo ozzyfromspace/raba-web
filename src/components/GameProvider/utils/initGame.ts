@@ -17,7 +17,7 @@ const initGame: InitGame = () => {
     __typename: ResourceTypeName.GAME,
     pads: initPadsState(padPropsData),
     errors: initErrors(),
-    playState: initPlayState(),
+    playState: initPlayState(false),
     currentPlayer: Player.ONE,
     gameStatus: GameStatus.ONGOING,
     cows: initCows(),

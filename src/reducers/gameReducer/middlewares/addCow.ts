@@ -5,11 +5,10 @@ const addCow: AddCow = (game, payload) => {
   const computedData = computeNextData_AddCow(game, payload);
 
   const nextGame: Game = {
-    __typename: computedData.nextTypename,
+    ...game,
     pads: computedData.nextPads,
     cows: computedData.nextCows,
     errors: computedData.nextErrors,
-    currentPlayer: computedData.nextPlayer,
     playState: computedData.nextPlayState,
     gameStatus: computedData.nextGameStatus,
     glowing: computedData.nextGlowing,

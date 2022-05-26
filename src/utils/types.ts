@@ -275,7 +275,8 @@ export enum GameActionTypeName {
   MOVE_COW_ACTION = 'MOVE_COW_ACTION',
   CAPTURE_COW_ACTION = 'CAPTURE_COW_ACTION',
   CANCEL_COW_ACTION = 'CANCEL_COW_ACTION',
-  SELECT_COW_ACTION = 'SELECT_COW_ACTION',
+  ADD_CAPTURE_COW_ACTION = 'ADD_CAPTURE_COW_ACTION',
+  MOVE_CAPTURE_COW_ACTION = 'MOVE_CAPTURE_COW_ACTION',
   SHOW_INVALID_COW_ACTION = 'SHOW_INVALID_COW_ACTION',
   SHOW_INVALID_PAD_ACTION = 'SHOW_INVALID_PAD_ACTION',
   GAME_ACTION = 'GAME_ACTION',
@@ -308,9 +309,15 @@ export interface MoveCowResolvedAction extends BaseResolvedAction {
   payload: MoveCowPayload;
 }
 
-export interface CaptureCowResolvedAction extends BaseResolvedAction {
-  __typename: GameActionTypeName.CAPTURE_COW_ACTION;
-  type: GameActionTypeName.CAPTURE_COW_ACTION;
+export interface MoveCaptureCowResolvedAction extends BaseResolvedAction {
+  __typename: GameActionTypeName.MOVE_CAPTURE_COW_ACTION;
+  type: GameActionTypeName.MOVE_CAPTURE_COW_ACTION;
+  payload: CaptureCowPayload;
+}
+
+export interface AddCaptureCowResolvedAction extends BaseResolvedAction {
+  __typename: GameActionTypeName.ADD_CAPTURE_COW_ACTION;
+  type: GameActionTypeName.ADD_CAPTURE_COW_ACTION;
   payload: CaptureCowPayload;
 }
 
@@ -318,12 +325,6 @@ export interface CancelCowResolvedAction extends BaseResolvedAction {
   __typename: GameActionTypeName.CANCEL_COW_ACTION;
   type: GameActionTypeName.CANCEL_COW_ACTION;
   payload: CancelCowPayload;
-}
-
-export interface SelectCowResolvedAction extends BaseResolvedAction {
-  __typename: GameActionTypeName.SELECT_COW_ACTION;
-  type: GameActionTypeName.SELECT_COW_ACTION;
-  payload: SelectCowPayload;
 }
 
 export interface ShowInvalidCowResolvedAction extends BaseResolvedAction {
@@ -338,12 +339,13 @@ export interface ShowInvalidPadResolvedAction extends BaseResolvedAction {
   payload: ShowInvalidPadPayload;
 }
 
+export type CanSelectResolvedAction = MoveCowResolvedAction | 
+
 export type GameResolvedAction =
   | AddCowResolvedAction
   | MoveCowResolvedAction
   | CaptureCowResolvedAction
   | CancelCowResolvedAction
-  | SelectCowResolvedAction
   | ShowInvalidCowResolvedAction
   | ShowInvalidPadResolvedAction;
 
@@ -390,7 +392,7 @@ export interface Game {
   cows: Cows;
   currentPlayer: Player;
   gameStatus: GameStatus;
-  playState: PlayState;
+  playState: PlayState<boolean>;
   errors: GameErrors;
   glowing: Glowing;
 }
@@ -399,10 +401,16 @@ export interface GamePayload {
   selectableId: SelectableId;
 }
 
-export interface GameAction {
+export type GameAction = {
   __typename: GameActionTypeName.GAME_ACTION;
   payload: GamePayload;
+} | {
+  __typename: GameActionTypeName.GAME_ACTION;
+  type: 'NEXT_PLAYER';
+  payload: null;
 }
+
+export type GoToNextPlayer = (game: Game) => Game;
 
 export type GameDispatch = React.Dispatch<GameAction>;
 
@@ -518,7 +526,7 @@ export type CanSelectCow = ResolverBooleanFn<CowId>;
 
 // Resolvers
 export type CanAddCowResolver = (padId: PadId) => AddCowResolvedAction;
-export type CanSelectCowResolver = (cowId: CowId) => SelectCowResolvedAction;
+export type CanSelectCowResolver = (cowId: CowId, game: Game) => SelectCowResolvedAction;
 
 export interface NextData_AddCow {
   nextGlowing: Glowing;
@@ -527,10 +535,19 @@ export interface NextData_AddCow {
   nextCows: Cows;
   nextPlayState: PlayState;
   nextErrors: GameErrors;
-  nextPlayer: Player;
   nextGameStatus: GameStatus;
-  nextTypename: ResourceTypeName.GAME;
 }
+
+export type NextData_AddCowFn = ( game: Game,
+  payload: AddCowPayload) => NextData_AddCow;
 
 export type IsCowTrapped = (cowId: CowId, padGraph: PadGraph, pads: Pads) => boolean;
 export type IsCowProtected = (cowId: CowId, owner: Player, game: Game) => boolean;
+export type GetNextGameStatus = (nextCows: Cows, nextGlowing: Glowing) => GameStatus;
+
+export interface CanSelectHelpers {
+  canMoveCow: boolean;
+  canAddCaptureCow: boolean;
+  canMoveCaptureCow: boolean;
+}
+export type CanSelectHelpersFn = (cowId: CowId, game: Game) => CanSelectHelpers;

@@ -1,17 +1,11 @@
-import { LineDirection, LineId } from '../../@types/lineTypes';
 import { useGame } from '../GameProvider/GameProvider';
-import styles from './DiagonalLines.module.scss';
+import styles from '../Lines/Lines.module.scss';
 import {
   DiagonalLine00,
   DiagonalLine06,
   DiagonalLine60,
   DiagonalLine66
 } from './Line';
-
-export type AssertLineIdMatchesLineDirection = <L extends LineId>(
-  lineId: LineId,
-  lineDirection: LineDirection
-) => asserts lineId is L;
 
 const DiagonalLines = () => {
   const { game } = useGame();

@@ -1,4 +1,4 @@
-import { Player, Styles } from './coreTypes';
+import { Styles } from './coreTypes';
 import { Cow } from './cowTypes';
 import { Game } from './gameTypes';
 import { Pad } from './padTypes';

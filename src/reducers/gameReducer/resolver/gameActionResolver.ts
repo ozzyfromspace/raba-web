@@ -1,13 +1,14 @@
 import { GameActionResolver } from '../../../@types/resolverActionTypes';
 import canAddCowResolver, { canAddCow } from './addCow';
+import canAddCaptureCow from './addCow/canAddCaptureCow';
+import canAddCaptureCowResolver from './addCow/canAddCaptureCowResolver';
 import { isCowId, isPadId } from './isResourceId';
-import canSelectCow from './selectCow/canSelectCow';
 
 const gameActionResolver: GameActionResolver = (selectableId, game) => {
   if (isCowId(selectableId)) {
-    if (canSelectCow(selectableId, game)) {
+    if (canAddCaptureCow(selectableId, game)) {
+      return canAddCaptureCowResolver(selectableId);
     }
-    // return canSelectCowResolver(selectableId);
   }
 
   if (isPadId(selectableId)) {

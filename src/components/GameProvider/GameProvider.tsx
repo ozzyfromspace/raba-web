@@ -9,7 +9,6 @@ import { Typename } from '../../@types/typenames';
 import gameReducer from '../../reducers/gameReducer';
 import initGame from './utils/initGame';
 
-
 const initGameState = initGame();
 
 const gameProviderValue: GameProviderValue = {
@@ -25,16 +24,15 @@ const GameProvider = (props: GameProviderProps) => {
   const [game, dispatch] = useReducer(gameReducer, initGameState);
 
   useEffect(() => {
-    if (game.cows.safeCows[Player.ONE] < 12) {
-      console.log('trying...', game.cows.safeCows);
-      
+    if (
+      game.cows.safeCows[Player.ONE] < 12 &&
+      game.gameStatus === GameStatus.ONGOING
+    ) {
       const shouldProceedToNextPlayer =
         game.playState.done === true &&
-        game.playState.__typename !== PlayOperation.INITIAL_STATE &&
-        game.gameStatus === GameStatus.ONGOING;
+        game.playState.__typename !== PlayOperation.INITIAL_STATE;
 
       if (shouldProceedToNextPlayer) {
-        console.log('changed!');
         dispatch({
           __typename: Typename.GAME_ACTION,
           type: 'NEXT_PLAYER',

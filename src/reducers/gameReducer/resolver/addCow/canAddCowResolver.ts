@@ -1,4 +1,4 @@
-import { ResolvedCowPayload } from '../../../../@types/payloadTypes';
+import { ResolvedPadPayload } from '../../../../@types/payloadTypes';
 import {
   CanAddCowResolver,
   ResolvedAddCowAction,
@@ -7,8 +7,8 @@ import {
 import { Typename } from '../../../../@types/typenames';
 
 const canAddCowResolver: CanAddCowResolver = (padId) => {
-  const addCowPayload: ResolvedCowPayload = {
-    __typename: Typename.RESOLVED_COW_PAYLOAD,
+  const addCowPayload: ResolvedPadPayload = {
+    __typename: Typename.RESOLVED_PAD_PAYLOAD,
     type: ResolvedGameType.ADD_COW,
     selectedPadId: padId,
   };

@@ -11,7 +11,6 @@ const addCow: AddCow = (game, selectedPadId) => {
     cows: computedData.nextCows,
     errors: computedData.nextErrors,
     playState: computedData.nextPlayState,
-    gameStatus: computedData.nextGameStatus,
     glowing: computedData.nextGlowing,
   };
 

@@ -53,3 +53,5 @@ export interface GameErrors {
   pads: PadId[];
   cows: CowId[];
 }
+
+export type SendToGameReducerFn = (selectableId: SelectableId, gameDispatch: GameDispatch) => () => void;

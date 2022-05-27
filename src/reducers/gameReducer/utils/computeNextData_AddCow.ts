@@ -1,12 +1,16 @@
-
-import { Cows, FreeCow, NumberSafeCows, PlayerCows, SafeCows } from '../../../@types/cowTypes';
+import {
+  Cows,
+  FreeCow,
+  NumberSafeCows,
+  PlayerCows,
+  SafeCows,
+} from '../../../@types/cowTypes';
 import { GameErrors } from '../../../@types/gameTypes';
 import { NextData_AddCowFn } from '../../../@types/nextDataTypes';
 import { Pad, Pads } from '../../../@types/padTypes';
 import { PlayOperation, PlayState } from '../../../@types/PlayState';
 import { Typename } from '../../../@types/typenames';
 import computeNextGlowingState from './computeNextGlowingSet';
-import getNextGameStatus from './getNextGameStatus';
 import getSafeCow from './getSafeCow';
 
 const computeNextData_AddCow: NextData_AddCowFn = (game, selectedPadId) => {
@@ -69,8 +73,6 @@ const computeNextData_AddCow: NextData_AddCowFn = (game, selectedPadId) => {
     cows: [],
   };
 
-  const nextGameStatus = getNextGameStatus(nextCows, nextGlowing);
-
   return {
     nextGlowing,
     cowOwner,
@@ -78,7 +80,6 @@ const computeNextData_AddCow: NextData_AddCowFn = (game, selectedPadId) => {
     nextCows,
     nextPlayState,
     nextErrors,
-    nextGameStatus,
   };
 };
 

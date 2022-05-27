@@ -1,5 +1,5 @@
 import { BaseId, CanSelectHelpers, Player } from "./coreTypes";
-import { Cow, CowId, Cows } from "./cowTypes";
+import { Cow, CowId, Cows, FreeCow } from "./cowTypes";
 import { Game, GameAction, GameErrors, GameStatus } from "./gameTypes";
 import { Glowing } from "./glowingTypes";
 import { IsInLineReturnType, LineDescription } from "./lineTypes";
@@ -58,7 +58,14 @@ export type IsInLine = (
 ) => IsInLineReturnType;
 
 export type AddCow = (game: Game, selectedPadId: PadId) => Game;
+export type AddCaptureCow = (game: Game, selectedCowId: CowId) => Game;
 
 export type GoToNextPlayer = (game: Game) => Game;
 
+export type AssertSelectedCowIsFree = (
+  selectedCow: Cow
+) => asserts selectedCow is FreeCow;
+
 export type CanAddCow = (padId: PadId, game: Game) => boolean;
+
+export type CanAddCaptureCow = (cowId: CowId, game: Game) => boolean;

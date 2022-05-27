@@ -1,7 +1,5 @@
-import { GameAction } from '../../@types/gameTypes';
-import { PadId } from '../../@types/padTypes';
 import { PadProps } from '../../@types/props';
-import { Typename } from '../../@types/typenames';
+import sendToGameReducer from '../../utils/sendToGameReducer';
 import { getPlayer } from '../Cows/utils/initCows';
 import { useGame } from '../GameProvider/GameProvider';
 import styles from './Pad.module.scss';
@@ -21,14 +19,6 @@ const Pad = (props: PadProps) => {
 
   const { dispatch: gameDispatch } = useGame();
 
-  const sendToGameReducer = (padId: PadId) => () => {
-    const action: GameAction = {
-      __typename: Typename.GAME_ACTION,
-      payload: { selectableId: padId },
-    };
-    gameDispatch(action);
-  };
-
   const visitingPlayer = !!visitingCowId && getPlayer(visitingCowId);
 
   const glow = isGlowing && visitingPlayer ? styles[`pad-glow-${visitingPlayer}`] : '';
@@ -44,7 +34,7 @@ const Pad = (props: PadProps) => {
       fill={fill}
       stroke={stroke}
       strokeOpacity={strokeOpacity}
-      onClick={sendToGameReducer(padId)}
+      onClick={sendToGameReducer(padId, gameDispatch)}
     />
   );
 };

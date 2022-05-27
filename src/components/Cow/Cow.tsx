@@ -3,10 +3,11 @@
 import { Player, PlayerColor, PlayerColorOnPad } from '../../@types/coreTypes';
 import { CowProps } from '../../@types/props';
 import { Typename } from '../../@types/typenames';
+import sendToGameReducer from '../../utils/sendToGameReducer';
 import { useGame } from '../GameProvider/GameProvider';
 
 const Cow = (props: CowProps) => {
-  const { game } = useGame();
+  const { game, dispatch: gameDispatch } = useGame();
   const { centerX, centerY, radius, cowId, owner } = props;
   const defaultFillColor =
     owner === Player.ONE ? PlayerColor.ONE : PlayerColor.TWO;
@@ -30,6 +31,7 @@ const Cow = (props: CowProps) => {
       cy={centerY}
       fill={fillColor}
       stroke="#777777"
+      onClick={sendToGameReducer(cowId, gameDispatch)}
     />
   );
 };

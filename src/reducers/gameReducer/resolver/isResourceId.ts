@@ -1,8 +1,7 @@
-import { SelectableId } from "../../../@types/coreTypes";
-import { CowId } from "../../../@types/cowTypes";
-import { PadId } from "../../../@types/padTypes";
-import { Typename } from "../../../@types/typenames";
-
+import { SelectableId } from '../../../@types/coreTypes';
+import { CowId } from '../../../@types/cowTypes';
+import { PadId } from '../../../@types/padTypes';
+import { Typename } from '../../../@types/typenames';
 
 const isResourceId = (
   selectableId: SelectableId,

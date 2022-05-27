@@ -1,21 +1,22 @@
 import { Player } from './coreTypes';
-import { Cows } from './cowTypes';
-import { Game, GameErrors, GameStatus } from './gameTypes';
+import { CowId, Cows } from './cowTypes';
+import { Game, GameErrors } from './gameTypes';
 import { Glowing } from './glowingTypes';
 import { PadId, Pads } from './padTypes';
 import { PlayState } from './PlayState';
 
-export type NextData_AddCowFn = (
-  game: Game,
-  selectedPadId: PadId
-) => NextData_AddCow;
-
-export interface NextData_AddCow {
+export interface NextData {
   nextGlowing: Glowing;
   cowOwner: Player;
   nextPads: Pads;
   nextCows: Cows;
   nextPlayState: PlayState;
   nextErrors: GameErrors;
-  nextGameStatus: GameStatus;
 }
+
+export type NextData_AddCowFn = (game: Game, selectedPadId: PadId) => NextData;
+
+export type NextData_AddCaptureCowFn = (
+  game: Game,
+  selectedCowId: CowId
+) => NextData;

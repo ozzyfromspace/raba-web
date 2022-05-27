@@ -1,4 +1,4 @@
-import { GamePhase } from "./gameTypes";
+import { GamePhase } from './gameTypes';
 
 export enum PlayOperation {
   INITIAL_STATE = 'INITIAL_STATE_OPERATION',
@@ -36,6 +36,13 @@ export type AddCowOperation =
       nextOperation: PlayOperation.ADD_CAPTURE_COW;
     };
 
+export type AddCaptureCowOperation = {
+  done: true;
+  __typename: PlayOperation.ADD_CAPTURE_COW;
+  lastOperation: PlayOperation.ADD_COW;
+  nextOperation: null;
+};
+
 export type MoveCowOperation =
   | {
       done: true;
@@ -53,8 +60,10 @@ export type MoveCowOperation =
 export type PlayState<Done extends boolean = false> =
   | InitialOperation<Done>
   | AddCowOperation
+  | AddCaptureCowOperation
   | MoveCowOperation;
 
 export type PlayStateFn<Done extends boolean = false> = (
-  done: boolean, phase: GamePhase
+  done: boolean,
+  phase: GamePhase
 ) => PlayState<Done>;

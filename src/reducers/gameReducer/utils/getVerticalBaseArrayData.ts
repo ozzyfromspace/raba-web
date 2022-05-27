@@ -1,5 +1,5 @@
 import { BaseId, BoardDigits } from "../../../@types/coreTypes";
-import { VerticalLineBaseId } from "../../../@types/lineTypes";
+import { LineDirection, VerticalLineId } from "../../../@types/lineTypes";
 import { PadId } from "../../../@types/padTypes";
 
 const verticalBaseId00 = [BaseId._00, BaseId._03, BaseId._06];
@@ -38,9 +38,9 @@ const getVerticalBaseArrayData = (padId: PadId) => {
     ? verticalBaseIdMap['_30']
     : verticalBaseIdMap['_34'];
 
-  const baseId: VerticalLineBaseId =
-    VerticalLineBaseId[
-      `_${isFirstNot3 ? firstId : isSecondLess3 ? '30' : '34'}`
+  const baseId: VerticalLineId =
+    VerticalLineId[
+      `${LineDirection.VERTICAL}_LINE_${isFirstNot3 ? firstId : isSecondLess3 ? '30' : '34'}`
     ];
 
   return { baseId, refArray };

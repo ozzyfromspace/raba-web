@@ -1,6 +1,6 @@
-import { CowId } from "./cowTypes";
-import { PadId } from "./padTypes";
-import { Typename } from "./typenames";
+import { CowId } from './cowTypes';
+import { PadId } from './padTypes';
+import { Typename } from './typenames';
 
 export enum BaseId {
   _00 = '_00',
@@ -62,4 +62,8 @@ export interface CanSelectHelpers {
   canMoveCow: boolean;
   canAddCaptureCow: boolean;
   canMoveCaptureCow: boolean;
+}
+
+export interface Styles {
+  readonly [key: string]: string;
 }

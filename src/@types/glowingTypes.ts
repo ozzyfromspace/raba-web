@@ -1,16 +1,16 @@
 import { Cows } from './cowTypes';
 import {
-  DiagonalLineBaseId,
-  HorizontalLineBaseId,
+  DiagonalLineId,
+  HorizontalLineId,
   LineDirection,
-  VerticalLineBaseId,
+  VerticalLineId,
 } from './lineTypes';
 import { PadId, Pads } from './padTypes';
 
 export interface GlowingLines {
-  [LineDirection.HORIZONTAL]: Set<HorizontalLineBaseId>;
-  [LineDirection.VERTICAL]: Set<VerticalLineBaseId>;
-  [LineDirection.DIAGONAL]: Set<DiagonalLineBaseId>;
+  [LineDirection.HORIZONTAL]: Set<HorizontalLineId>;
+  [LineDirection.VERTICAL]: Set<VerticalLineId>;
+  [LineDirection.DIAGONAL]: Set<DiagonalLineId>;
 }
 
 export interface Glowing {

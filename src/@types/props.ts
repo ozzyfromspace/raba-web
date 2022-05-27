@@ -1,4 +1,6 @@
+import { Player, Styles } from './coreTypes';
 import { Cow } from './cowTypes';
+import { Game } from './gameTypes';
 import { Pad } from './padTypes';
 import { Typename } from './typenames';
 
@@ -34,4 +36,9 @@ export interface SafeCowDefaults {
 
 export interface GameProviderProps {
   children: React.ReactNode;
+}
+
+export interface LineProps {
+  game: Game;
+  styles: Styles;
 }

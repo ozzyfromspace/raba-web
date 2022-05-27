@@ -1,5 +1,5 @@
 import { BaseId, BoardDigits } from "../../../@types/coreTypes";
-import { HorizontalLineBaseId } from "../../../@types/lineTypes";
+import { HorizontalLineId, LineDirection } from "../../../@types/lineTypes";
 import { PadId } from "../../../@types/padTypes";
 
 const horizontalBaseId00 = [BaseId._00, BaseId._30, BaseId._60];
@@ -38,9 +38,9 @@ const getHorizontalBaseArrayData = (padId: PadId) => {
     ? horizontalBaseIdMap['_03']
     : horizontalBaseIdMap['_43'];
 
-  const baseId: HorizontalLineBaseId =
-    HorizontalLineBaseId[
-      `_${isSecondNot3 ? secondId : isFirstLess3 ? '03' : '43'}`
+  const baseId: HorizontalLineId =
+    HorizontalLineId[
+      `${LineDirection.HORIZONTAL}_LINE_${isSecondNot3 ? secondId : isFirstLess3 ? '03' : '43'}`
     ];
 
   return { baseId, refArray };

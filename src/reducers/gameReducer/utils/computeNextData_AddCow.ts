@@ -1,39 +1,32 @@
-import { PlayOperation, PlayState } from '../../../utils/PlayState';
-import {
-  Cows,
-  CowTypeName,
-  FreeCow,
-  GameErrors,
-  NextData_AddCowFn,
-  NumberSafeCows,
-  Pad,
-  Pads,
-  PlayerCows,
-  SafeCows,
-} from '../../../utils/types';
+
+import { Cows, FreeCow, NumberSafeCows, PlayerCows, SafeCows } from '../../../@types/cowTypes';
+import { GameErrors } from '../../../@types/gameTypes';
+import { NextData_AddCowFn } from '../../../@types/nextDataTypes';
+import { Pad, Pads } from '../../../@types/padTypes';
+import { PlayOperation, PlayState } from '../../../@types/PlayState';
+import { Typename } from '../../../@types/typenames';
 import computeNextGlowingState from './computeNextGlowingSet';
 import getNextGameStatus from './getNextGameStatus';
 import getSafeCow from './getSafeCow';
 
-const computeNextData_AddCow: NextData_AddCowFn = (game, payload) => {
-  const padId = payload.selectedPadId;
+const computeNextData_AddCow: NextData_AddCowFn = (game, selectedPadId) => {
   const foundCow = getSafeCow(game.cows[game.currentPlayer]);
   const addedCow: FreeCow = {
     ...foundCow,
-    padId,
-    __typename: CowTypeName.FREE_COW,
+    padId: selectedPadId,
+    __typename: Typename.FREE_COW,
     error: false,
     selected: false,
-    centerX: game.pads[padId].centerX,
-    centerY: game.pads[padId].centerY,
+    centerX: game.pads[selectedPadId].centerX,
+    centerY: game.pads[selectedPadId].centerY,
   };
   const cowOwner = addedCow.owner;
 
   const modifiedPad: Pad = {
-    ...game.pads[padId],
+    ...game.pads[selectedPadId],
     visitingCowId: addedCow.cowId,
   };
-  const nextPads: Pads = { ...game.pads, [padId]: modifiedPad };
+  const nextPads: Pads = { ...game.pads, [selectedPadId]: modifiedPad };
   const nextNumberSafeCows: NumberSafeCows = (game.cows.safeCows[
     game.currentPlayer
   ] - 1) as NumberSafeCows;
@@ -67,7 +60,7 @@ const computeNextData_AddCow: NextData_AddCowFn = (game, payload) => {
     nextOperation: PlayOperation.ADD_CAPTURE_COW,
   };
 
-  const nextPlayState: PlayState = !nextGlowing.pads.has(padId)
+  const nextPlayState: PlayState = !nextGlowing.pads.has(selectedPadId)
     ? initialPlayState
     : addCapturePlayState;
 

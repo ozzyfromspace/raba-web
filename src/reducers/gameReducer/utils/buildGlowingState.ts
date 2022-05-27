@@ -1,4 +1,8 @@
-import { Cows, Glowing, LineDirection, Pad, Pads, Player, PlayerCowsObject } from "../../../utils/types";
+import { Player } from "../../../@types/coreTypes";
+import { Cows, PlayerCowsObject } from "../../../@types/cowTypes";
+import { Glowing } from "../../../@types/glowingTypes";
+import { LineDirection } from "../../../@types/lineTypes";
+import { Pad, Pads } from "../../../@types/padTypes";
 import { isInDiagonalLine, isInHorizontalLine, isInVerticalLine } from "../lineDetector";
 import getOwnerByCowId from "./getOwnerByCowId";
 

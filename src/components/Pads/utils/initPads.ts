@@ -1,5 +1,6 @@
-import padGraphArray from "../../../utils/padsGraphArray";
-import { InitPads, Pad, PartialPads } from '../../../utils/types';
+import { InitPads, PartialPads } from "../../../@types/functionTypes";
+import padGraphArray from "../../../@types/padsGraphArray";
+import { Pad } from "../../../@types/padTypes";
 import assertPadsObject from './assertPadsObject';
 import createInitPadsObject from './createInitPadsObject';
 import getPad from './getPad';

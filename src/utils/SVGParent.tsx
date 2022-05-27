@@ -1,5 +1,5 @@
 import React from 'react';
-import { SVGParentProps } from './props';
+import { SVGParentProps } from '../@types/props';
 
 const SVGParent = (props: SVGParentProps) => {
   const { children } = props;

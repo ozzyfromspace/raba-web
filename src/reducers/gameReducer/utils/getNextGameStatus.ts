@@ -1,4 +1,6 @@
-import { GameStatus, GetNextGameStatus, Player } from '../../../utils/types';
+import { Player } from '../../../@types/coreTypes';
+import { GetNextGameStatus } from '../../../@types/functionTypes';
+import { GameStatus } from '../../../@types/gameTypes';
 import freeCowFilter from './freeCowFilter';
 
 const getNextGameStatus: GetNextGameStatus = (nextCows, nextGlowing) => {

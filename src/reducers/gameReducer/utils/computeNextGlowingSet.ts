@@ -1,5 +1,5 @@
+import { ComputeNextGlowingState } from '../../../@types/glowingTypes';
 import initGlowing from '../../../components/GameProvider/utils/initGlowing';
-import { ComputeNextGlowingState } from '../../../utils/types';
 import allPadsFilter from './allPadsFilter';
 import buildGlowingState from './buildGlowingState';
 

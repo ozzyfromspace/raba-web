@@ -1,4 +1,5 @@
-import { CowId, Player, PlayerCowsObject } from '../../../utils/types';
+import { Player } from "../../../@types/coreTypes";
+import { CowId, PlayerCowsObject } from "../../../@types/cowTypes";
 
 const getOwnerByCowId = (cowId: CowId, playerCowsObject: PlayerCowsObject) => {
   const cowOwner =

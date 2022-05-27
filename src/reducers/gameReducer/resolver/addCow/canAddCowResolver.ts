@@ -1,23 +1,24 @@
+import { ResolvedCowPayload } from '../../../../@types/payloadTypes';
 import {
-  AddCowPayload,
-  AddCowResolvedAction,
   CanAddCowResolver,
-  GameActionTypeName,
-  GamePayloadTypeName,
-} from '../../../../utils/types';
+  ResolvedAddCowAction,
+  ResolvedGameType,
+} from '../../../../@types/resolverActionTypes';
+import { Typename } from '../../../../@types/typenames';
 
 const canAddCowResolver: CanAddCowResolver = (padId) => {
-  const addCowPayload: AddCowPayload = {
-    __typename: GamePayloadTypeName.ADD_COW_PAYLOAD,
+  const addCowPayload: ResolvedCowPayload = {
+    __typename: Typename.RESOLVED_COW_PAYLOAD,
+    type: ResolvedGameType.ADD_COW,
     selectedPadId: padId,
   };
-  const addCowResolvedAction: AddCowResolvedAction = {
-    __typename: GameActionTypeName.ADD_COW_ACTION,
-    type: GameActionTypeName.ADD_COW_ACTION,
+  const resolvedAction: ResolvedAddCowAction = {
+    __typename: Typename.RESOLVED_ADD_COW_ACTION,
+    type: ResolvedGameType.ADD_COW,
     payload: addCowPayload,
   };
 
-  return addCowResolvedAction;
+  return resolvedAction;
 };
 
 export default canAddCowResolver;

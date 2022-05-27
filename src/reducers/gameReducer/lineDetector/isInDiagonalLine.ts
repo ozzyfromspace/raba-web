@@ -1,20 +1,18 @@
+
+import { IsInLine } from '../../../@types/functionTypes';
+import { LineDescription, LineDirection } from '../../../@types/lineTypes';
+import { Typename } from '../../../@types/typenames';
 import {
-  CowTypeName,
-  IsInLine,
-  LineDescription,
-  LineDirection,
-} from '../../../utils/types';
-import {
-  getAllFreeCows,
-  getAllOwnerCows,
-  getDiagonalBaseArrayData,
-  getLineMatchData,
+    getAllFreeCows,
+    getAllOwnerCows,
+    getDiagonalBaseArrayData,
+    getLineMatchData
 } from '../utils';
 
 const isInDiagonalLine: IsInLine = (cowOwner, cowId, nextCows, nextPads) => {
   const currentCow = nextCows[cowOwner][cowId];
 
-  if (currentCow.__typename === CowTypeName.FREE_COW) {
+  if (currentCow.__typename === Typename.FREE_COW) {
     const padId = currentCow.padId;
     const refData = getDiagonalBaseArrayData(padId);
 

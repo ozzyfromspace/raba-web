@@ -1,4 +1,4 @@
-import { GetPadGraphByRootId } from '../../../utils/types';
+import { GetPadGraphByRootId } from "../../../@types/padGraphTypes";
 
 const getPadGraphByRootId: GetPadGraphByRootId = (rootId, padGraphs) => {
   for (const padGraph of padGraphs) {

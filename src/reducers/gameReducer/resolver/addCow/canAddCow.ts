@@ -1,4 +1,5 @@
-import { CanAddCow, GameStatus } from '../../../../utils/types';
+import { CanAddCow } from '../../../../@types/functionTypes';
+import { GameStatus } from '../../../../@types/gameTypes';
 
 const canAddCow: CanAddCow = (padId, game) => {
   const canAddCowBoolean =

@@ -1,9 +1,11 @@
-import { SafeCowDefaults } from "../../../utils/props";
-import { CowId, Cows, CowTypeName, GetPlayer, InitCows, Player, PlayerCows, ResourceTypeName, SafeCow } from "../../../utils/types";
-
+import { Player } from '../../../@types/coreTypes';
+import { CowId, Cows, PlayerCows, SafeCow } from '../../../@types/cowTypes';
+import { GetPlayer, InitCows } from '../../../@types/functionTypes';
+import { SafeCowDefaults } from '../../../@types/props';
+import { Typename } from '../../../@types/typenames';
 
 const defaults: SafeCowDefaults = {
-  __typename: CowTypeName.SAFE_COW,
+  __typename: Typename.SAFE_COW,
   fill: '#ffffff',
   radius: 24,
   stroke: '#808080',
@@ -13,7 +15,7 @@ const defaults: SafeCowDefaults = {
 const initCows: InitCows = () => {
   const cowIdArray = Object.values(CowId);
   const cowsObjInit = {
-    __typename: ResourceTypeName.COWS,
+    __typename: Typename.COWS,
     safeCows: {
       [Player.ONE]: 12,
       [Player.TWO]: 12,
@@ -34,7 +36,7 @@ const initCows: InitCows = () => {
     };
 
     const cowsOfOwner = cowsObj[owner];
-    const newCowsOfOwner = {...cowsOfOwner, [safeCow.cowId]: safeCow};
+    const newCowsOfOwner = { ...cowsOfOwner, [safeCow.cowId]: safeCow };
 
     return { ...cowsObj, [owner]: newCowsOfOwner };
   }, cowsObjInit);

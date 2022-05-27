@@ -1,13 +1,14 @@
-import { PadGraphArray } from '../../../utils/padsGraphArray';
-import { Pad, ResourceTypeName } from '../../../utils/types';
+import { PadGraphArray } from '../../../@types/padsGraphArray';
+import { Pad } from '../../../@types/padTypes';
+import { Typename } from '../../../@types/typenames';
 
 const allPadsFilter = (
-  resource: Pad | ResourceTypeName.PADS | PadGraphArray
+  resource: Pad | Typename.PADS | PadGraphArray
 ): resource is Pad => {
   if (
     resource instanceof Object &&
     !(resource instanceof Array) &&
-    resource.__typename === ResourceTypeName.PAD
+    resource.__typename === Typename.PAD
   )
     return true;
   return false;

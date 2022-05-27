@@ -1,4 +1,4 @@
-import { PlayOperation, PlayState, PlayStateFn } from './PlayState';
+import { PlayOperation, PlayState, PlayStateFn } from '../@types/PlayState';
 
 const addCowPlayState: PlayStateFn<boolean> = (done) => {
   if (done) {

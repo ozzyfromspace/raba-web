@@ -1,11 +1,12 @@
-import { CreateInitPadsObject, PartialPads, ResourceTypeName } from '../../../utils/types';
+import { CreateInitPadsObject, PartialPads } from "../../../@types/functionTypes";
+import { Typename } from "../../../@types/typenames";
 
 const createInitPadsObject: CreateInitPadsObject = (
   finObj,
   pad
 ): PartialPads => ({
   ...finObj,
-  __typename: ResourceTypeName.PADS,
+  __typename: Typename.PADS,
   [pad.padId]: pad,
 });
 

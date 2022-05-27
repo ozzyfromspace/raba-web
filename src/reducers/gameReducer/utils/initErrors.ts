@@ -1,4 +1,4 @@
-import { InitErrors } from '../../../utils/types';
+import { InitErrors } from '../../../@types/functionTypes';
 
 const initErrors: InitErrors = () => ({ cows: [], pads: [] });
 

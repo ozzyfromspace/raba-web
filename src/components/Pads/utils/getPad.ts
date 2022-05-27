@@ -1,5 +1,5 @@
-import { PadProps } from '../../../utils/props';
-import { Pad } from '../../../utils/types';
+import { Pad } from "../../../@types/padTypes";
+import { PadProps } from "../../../@types/props";
 
 function getPad(padProps: PadProps) {
   const pad: Pad = {

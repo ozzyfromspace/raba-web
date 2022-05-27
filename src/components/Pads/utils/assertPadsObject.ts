@@ -1,11 +1,9 @@
-import {
-  AssertPadsObject,
-  PadId,
-  ResourceTypeName,
-} from '../../../utils/types';
+import { AssertPadsObject } from '../../../@types/functionTypes';
+import { PadId } from '../../../@types/padTypes';
+import { Typename } from '../../../@types/typenames';
 
 const assertPadsObject: AssertPadsObject = (partial) => {
-  const hasCorrectTypename = partial?.__typename === ResourceTypeName.PADS;
+  const hasCorrectTypename = partial?.__typename === Typename.PADS;
   if (!hasCorrectTypename)
     throw new Error("Pads Object missing a __typename 'PADS'");
   const hasAllPads = Object.keys(partial).filter(isPad).length === 24;

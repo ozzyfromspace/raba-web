@@ -1,23 +1,22 @@
-import {
-  CowId,
-  PadId,
-  ResourceTypeName,
-  SelectableId,
-} from '../../../utils/types';
+import { SelectableId } from "../../../@types/coreTypes";
+import { CowId } from "../../../@types/cowTypes";
+import { PadId } from "../../../@types/padTypes";
+import { Typename } from "../../../@types/typenames";
+
 
 const isResourceId = (
   selectableId: SelectableId,
-  resourceName: ResourceTypeName
+  resourceName: Typename.COW | Typename.PAD
 ) => {
   const selectableIdName = selectableId.substring(0, 3);
-  if (selectableIdName === ResourceTypeName[resourceName]) return true;
+  if (selectableIdName === Typename[resourceName]) return true;
   return false;
 };
 
 const isCowId = (selectableId: SelectableId): selectableId is CowId =>
-  isResourceId(selectableId, ResourceTypeName.COW);
+  isResourceId(selectableId, Typename.COW);
 
 const isPadId = (selectableId: SelectableId): selectableId is PadId =>
-  isResourceId(selectableId, ResourceTypeName.PAD);
+  isResourceId(selectableId, Typename.PAD);
 
 export { isCowId, isPadId };

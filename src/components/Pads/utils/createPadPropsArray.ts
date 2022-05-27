@@ -1,5 +1,6 @@
-import { PadProps } from '../../../utils/props';
-import { Game, Pad } from '../../../utils/types';
+import { Game } from "../../../@types/gameTypes";
+import { Pad } from "../../../@types/padTypes";
+import { PadProps } from "../../../@types/props";
 
 const createPadPropsArray = (game: Game) => (pad: Pad) => {
   const currentProps: PadProps = {

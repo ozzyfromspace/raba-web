@@ -1,16 +1,14 @@
 // import styles from './GameProvider.module.scss';
 
 import { createContext, useContext, useEffect, useReducer } from 'react';
+import { Player } from '../../@types/coreTypes';
+import { GameProviderValue, GameStatus } from '../../@types/gameTypes';
+import { PlayOperation } from '../../@types/PlayState';
+import { GameProviderProps } from '../../@types/props';
+import { Typename } from '../../@types/typenames';
 import gameReducer from '../../reducers/gameReducer';
-import { PlayOperation } from '../../utils/PlayState';
-import { GameProviderProps } from '../../utils/props';
-import {
-  GameActionTypeName,
-  GameProviderValue,
-  GameStatus,
-  Player
-} from '../../utils/types';
 import initGame from './utils/initGame';
+
 
 const initGameState = initGame();
 
@@ -38,7 +36,7 @@ const GameProvider = (props: GameProviderProps) => {
       if (shouldProceedToNextPlayer) {
         console.log('changed!');
         dispatch({
-          __typename: GameActionTypeName.GAME_ACTION,
+          __typename: Typename.GAME_ACTION,
           type: 'NEXT_PLAYER',
           payload: null,
         });

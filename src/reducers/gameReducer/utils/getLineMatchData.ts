@@ -1,11 +1,8 @@
-import {
-  CowId,
-  GetLineMatchDataFn,
-  LineDescription,
-  LineDirection,
-  PadId,
-  ResourceTypeName,
-} from '../../../utils/types';
+import { CowId } from "../../../@types/cowTypes";
+import { GetLineMatchDataFn } from "../../../@types/functionTypes";
+import { LineDescription, LineDirection } from "../../../@types/lineTypes";
+import { PadId } from "../../../@types/padTypes";
+import { Typename } from "../../../@types/typenames";
 
 const getLineMatchData: GetLineMatchDataFn = (
   refArray,
@@ -17,7 +14,7 @@ const getLineMatchData: GetLineMatchDataFn = (
 
   for (const refBaseId of refArray) {
     let pass = false;
-    const refPadId: PadId = PadId[`${ResourceTypeName.PAD}${refBaseId}`];
+    const refPadId = PadId[`${Typename.PAD}${refBaseId}`];
     const testPad = nextPads[refPadId];
 
     for (const cow of freeCows) {

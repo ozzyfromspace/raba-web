@@ -1,4 +1,4 @@
-import { Cow, FreeCow } from '../../../utils/types';
+import { Cow, FreeCow } from '../../../@types/cowTypes';
 import freeCowFilter from './freeCowFilter';
 
 const getAllFreeCows = (allPlayerCows: Cow[]): FreeCow[] => {

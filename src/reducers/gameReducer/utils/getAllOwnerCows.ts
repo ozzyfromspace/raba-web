@@ -1,4 +1,5 @@
-import { Cows, Player } from '../../../utils/types';
+import { Player } from "../../../@types/coreTypes";
+import { Cows } from "../../../@types/cowTypes";
 
 const getAllOwnerCows = (cowOwner: Player, nextCows: Cows) => {
   const playerCowsObject = nextCows[cowOwner];

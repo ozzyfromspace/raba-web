@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { PadProps } from '../../../utils/props';
+import { PadProps } from '../../../@types/props';
 import SVGParent from '../../../utils/SVGParent';
 import { padPropsData } from "../../Pads/padPropsData";
 import Pad from '../Pad';

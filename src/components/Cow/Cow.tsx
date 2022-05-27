@@ -1,12 +1,8 @@
 // import styles from './Cow.module.scss';
 
-import { CowProps } from '../../utils/props';
-import {
-  CowTypeName,
-  Player,
-  PlayerColor,
-  PlayerColorOnPad
-} from '../../utils/types';
+import { Player, PlayerColor, PlayerColorOnPad } from '../../@types/coreTypes';
+import { CowProps } from '../../@types/props';
+import { Typename } from '../../@types/typenames';
 import { useGame } from '../GameProvider/GameProvider';
 
 const Cow = (props: CowProps) => {
@@ -17,7 +13,7 @@ const Cow = (props: CowProps) => {
 
   const cow = game.cows[owner][cowId];
   const cowOnPad =
-    cow.__typename === CowTypeName.FREE_COW && game.glowing.pads.has(cow.padId);
+    cow.__typename === Typename.FREE_COW && game.glowing.pads.has(cow.padId);
 
   const fillColor = cowOnPad
     ? cow.owner === Player.ONE

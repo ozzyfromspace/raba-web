@@ -1,6 +1,8 @@
+import { Player } from '../../../@types/coreTypes';
+import { GoToNextPlayer } from '../../../@types/functionTypes';
+import { Game, GamePhase, GameStatus } from '../../../@types/gameTypes';
+import { PlayOperation } from '../../../@types/PlayState';
 import initPlayState from '../../../utils/initPlayState';
-import { PlayOperation } from '../../../utils/PlayState';
-import { Game, GameStatus, GoToNextPlayer, Player } from '../../../utils/types';
 import getNextGameStatus from '../utils/getNextGameStatus';
 
 const goToNextPlayer: GoToNextPlayer = (game) => {
@@ -17,12 +19,15 @@ const goToNextPlayer: GoToNextPlayer = (game) => {
 
     const isGameDone = nextGameStatus !== GameStatus.ONGOING;
 
-    const nextPlayState = initPlayState(isGameDone);
-    const nextPlayer: Player =
+    const nextPlayState = initPlayState(isGameDone, game.gamePhase);
+    const nextPlayer =
       game.currentPlayer === Player.ONE ? Player.TWO : Player.ONE;
+
+    const isAddingPhase = game.cows.safeCows[Player.ONE] > 0 || game.cows.safeCows[Player.TWO] > 0;
 
     const nextGame: Game = {
       ...game,
+      gamePhase: isAddingPhase ? GamePhase.ADDING : GamePhase.MOVING,
       playState: nextPlayState,
       currentPlayer: nextPlayer,
       gameStatus: nextGameStatus,

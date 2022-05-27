@@ -1,9 +1,6 @@
-import {
-  BaseId,
-  BoardDigits,
-  PadId,
-  VerticalLineBaseId,
-} from '../../../utils/types';
+import { BaseId, BoardDigits } from "../../../@types/coreTypes";
+import { VerticalLineBaseId } from "../../../@types/lineTypes";
+import { PadId } from "../../../@types/padTypes";
 
 const verticalBaseId00 = [BaseId._00, BaseId._03, BaseId._06];
 const verticalBaseId11 = [BaseId._11, BaseId._13, BaseId._15];

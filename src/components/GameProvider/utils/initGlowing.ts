@@ -1,4 +1,5 @@
-import { InitGlowing, LineDirection } from '../../../utils/types';
+import { InitGlowing } from '../../../@types/glowingTypes';
+import { LineDirection } from '../../../@types/lineTypes';
 
 const initGlowing: InitGlowing = () => ({
   pads: new Set(),

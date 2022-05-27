@@ -1,4 +1,6 @@
-import { Cow, CowTypeName, Pad, ResourceTypeName } from './types';
+import { Cow } from './cowTypes';
+import { Pad } from './padTypes';
+import { Typename } from './typenames';
 
 export type CowProps = Cow;
 
@@ -11,7 +13,7 @@ export interface PadProps extends Pad {
 }
 
 export interface PadPropsDataDefaults {
-  __typename: ResourceTypeName.PAD;
+  __typename: Typename.PAD;
   error: boolean;
   radius: number;
   fill: string;
@@ -23,7 +25,7 @@ export interface PadPropsDataDefaults {
 }
 
 export interface SafeCowDefaults {
-  __typename: CowTypeName.SAFE_COW;
+  __typename: Typename.SAFE_COW;
   radius: number;
   fill: string;
   stroke: string;

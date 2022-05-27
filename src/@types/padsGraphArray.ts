@@ -1,4 +1,4 @@
-import { PadId } from './types';
+import { PadId } from "./padTypes";
 
 const padGraphArray = [
   {

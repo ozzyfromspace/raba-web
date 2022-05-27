@@ -1,6 +1,7 @@
+import { CanSelectHelpersFn } from '../../../@types/functionTypes';
+import { PlayOperation } from '../../../@types/PlayState';
+import { Typename } from '../../../@types/typenames';
 import { getPlayer } from '../../../components/Cows/utils/initCows';
-import { PlayOperation } from '../../../utils/PlayState';
-import { CanSelectHelpersFn, CowTypeName } from '../../../utils/types';
 import getPadGraphByRootId from './getPadGraphByPadId';
 import isCowProtected from './isCowProtected';
 import isCowTrapped from './isCowTrapped';
@@ -8,7 +9,7 @@ import isCowTrapped from './isCowTrapped';
 const canSelectHelpers: CanSelectHelpersFn = (cowId, game) => {
   const cowOwner = getPlayer(cowId);
   const cow = game.cows[cowOwner][cowId];
-  const isCowFree = cow.__typename === CowTypeName.FREE_COW;
+  const isCowFree = cow.__typename === Typename.FREE_COW;
   const playState = game.playState;
 
   if (isCowFree) {

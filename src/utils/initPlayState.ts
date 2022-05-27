@@ -1,6 +1,7 @@
-import { PlayOperation, PlayState, PlayStateFn } from './PlayState';
+import { GamePhase } from '../@types/gameTypes';
+import { PlayOperation, PlayState, PlayStateFn } from '../@types/PlayState';
 
-const initPlayState: PlayStateFn<boolean> = (done) => {
+const initPlayState: PlayStateFn<boolean> = (done, phase) => {
   if (done) {
     const initialOperation: PlayState<typeof done> = {
       __typename: PlayOperation.INITIAL_STATE,
@@ -16,7 +17,10 @@ const initPlayState: PlayStateFn<boolean> = (done) => {
     __typename: PlayOperation.INITIAL_STATE,
     done: false,
     lastOperation: null,
-    nextOperation: PlayOperation.ADD_OR_MOVE_COW,
+    nextOperation:
+      phase === GamePhase.ADDING
+        ? PlayOperation.ADD_COW
+        : PlayOperation.MOVE_COW,
   };
 
   return initialOperation;

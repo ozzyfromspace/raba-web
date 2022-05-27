@@ -1,9 +1,9 @@
-import { PadProps, PadPropsDataDefaults } from "../../utils/props";
-import { PadId, ResourceTypeName } from "../../utils/types";
-
+import { PadId } from "../../@types/padTypes";
+import { PadProps, PadPropsDataDefaults } from "../../@types/props";
+import { Typename } from "../../@types/typenames";
 
 const defaultSettings: PadPropsDataDefaults = {
-  __typename: ResourceTypeName.PAD,
+  __typename: Typename.PAD,
   error: false,
   radius: 24,
   fill: '#ffffff',

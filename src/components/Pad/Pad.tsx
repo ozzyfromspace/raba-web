@@ -1,5 +1,7 @@
-import { PadProps } from '../../utils/props';
-import { GameAction, GameActionTypeName, PadId } from '../../utils/types';
+import { GameAction } from '../../@types/gameTypes';
+import { PadId } from '../../@types/padTypes';
+import { PadProps } from '../../@types/props';
+import { Typename } from '../../@types/typenames';
 import { getPlayer } from '../Cows/utils/initCows';
 import { useGame } from '../GameProvider/GameProvider';
 import styles from './Pad.module.scss';
@@ -21,7 +23,7 @@ const Pad = (props: PadProps) => {
 
   const sendToGameReducer = (padId: PadId) => () => {
     const action: GameAction = {
-      __typename: GameActionTypeName.GAME_ACTION,
+      __typename: Typename.GAME_ACTION,
       payload: { selectableId: padId },
     };
     gameDispatch(action);

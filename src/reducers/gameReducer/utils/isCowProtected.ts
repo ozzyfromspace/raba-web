@@ -1,11 +1,12 @@
-import { CowTypeName, IsCowProtected } from '../../../utils/types';
+import { IsCowProtected } from '../../../@types/functionTypes';
+import { Typename } from '../../../@types/typenames';
 import freeCowFilter from './freeCowFilter';
 
 const isCowProtected: IsCowProtected = (cowId, owner, game) => {
   const cows = game.cows[owner];
   const testCow = cows[cowId];
 
-  if (testCow.__typename !== CowTypeName.FREE_COW) {
+  if (testCow.__typename !== Typename.FREE_COW) {
     throw new Error('Test cow must be a free cow');
   }
 

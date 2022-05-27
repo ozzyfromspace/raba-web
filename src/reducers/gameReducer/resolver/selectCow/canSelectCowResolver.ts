@@ -1,40 +1,37 @@
-import {
-  CanSelectCowResolver, GameActionTypeName,
-  GamePayloadTypeName,
-  SelectCowPayload,
-  SelectCowResolvedAction
-} from "../../../../utils/types";
-import canSelectHelpers from "../../utils/canSelectHelpers";
 
-const canSelectCowResolver: CanSelectCowResolver = (cowId, game) => {
+// import canSelectHelpers from "../../utils/canSelectHelpers";
 
-  const { canMoveCow, canAddCaptureCow, canMoveCaptureCow } = canSelectHelpers(
-    cowId,
-    game
-  );
+// const canSelectCowResolver: CanSelectCowResolver = (cowId, game) => {
 
-  if(canMoveCow) {
-    const selectCowPayload: SelectCowPayload = {
-      __typename: GamePayloadTypeName.SELECT_COW_PAYLOAD,
-      selectedCowId: cowId,
-    };
-    const addCowResolvedAction: SelectCowResolvedAction = {
-      __typename: GameActionTypeName.SELECT_COW_ACTION,
-      type: GameActionTypeName.SELECT_COW_ACTION,
-      payload: selectCowPayload,
-    };
+//   const { canMoveCow, canAddCaptureCow, canMoveCaptureCow } = canSelectHelpers(
+//     cowId,
+//     game
+//   );
+
+//   if(canMoveCow) {
+//     const selectCowPayload: SelectCowPayload = {
+//       __typename: GamePayloadTypeName.SELECT_COW_PAYLOAD,
+//       selectedCowId: cowId,
+//     };
+//     const addCowResolvedAction: SelectCowResolvedAction = {
+//       __typename: Typename.SELECT_COW_ACTION,
+//       type: Typename.SELECT_COW_ACTION,
+//       payload: selectCowPayload,
+//     };
   
-    return addCowResolvedAction;
+//     return addCowResolvedAction;
 
-  }
-  if(canAddCaptureCow){
+//   }
+//   if(canAddCaptureCow){
 
-  }
-  if(canMoveCaptureCow){
+//   }
+//   if(canMoveCaptureCow){
 
-  }
-  return
+//   }
+//   return
 
-};
+// };
 
-export default canSelectCowResolver;
+// export default canSelectCowResolver;
+
+export { };

@@ -1,3 +1,4 @@
+import { Player } from "../../@types/coreTypes";
 import { PadId } from "../../@types/padTypes";
 import { PadProps, PadPropsDataDefaults } from "../../@types/props";
 import { Typename } from "../../@types/typenames";
@@ -12,6 +13,8 @@ const defaultSettings: PadPropsDataDefaults = {
   visitingCowId: null,
   selected: false,
   isGlowing: false,
+  currentPlayer: Player.ONE,
+  captureOperation: false,
 };
 
 export const padPropsData: PadProps[] = [

@@ -38,7 +38,7 @@ const lineStylesFn = (
     : '#F2F1F1';
 
   return {
-    glowingClass: isSelected ? styles[`line-glow-${lineOwner}`] : '',
+    glowingClass: isSelected ? styles[`glow-${lineOwner}`] : '',
     lineStyle,
   };
 };

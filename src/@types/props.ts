@@ -1,4 +1,4 @@
-import { Styles } from './coreTypes';
+import { Player, Styles } from './coreTypes';
 import { Cow } from './cowTypes';
 import { Game } from './gameTypes';
 import { Pad } from './padTypes';
@@ -11,7 +11,9 @@ export interface SVGParentProps {
 }
 
 export interface PadProps extends Pad {
+  currentPlayer: Player;
   isGlowing: boolean;
+  captureOperation: boolean;
 }
 
 export interface PadPropsDataDefaults {
@@ -24,6 +26,8 @@ export interface PadPropsDataDefaults {
   visitingCowId: null;
   selected: boolean;
   isGlowing: boolean;
+  currentPlayer: Player;
+  captureOperation: boolean;
 }
 
 export interface SafeCowDefaults {

@@ -49,6 +49,12 @@ export enum PlayerColorOnPad {
   TWO = '#207ede',
 }
 
+export enum PadHoverColor {
+  ONE = '#ffbcE1',
+  TWO = '	#9dd9f3',
+  NONE = '#ffffff',
+}
+
 export interface Circle {
   radius: number;
   fill: string;

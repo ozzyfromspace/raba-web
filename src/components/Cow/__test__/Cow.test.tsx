@@ -1,11 +1,14 @@
 import { render, screen } from '@testing-library/react';
-import { CowProps } from '../../../utils/props';
+import { Player } from '../../../@types/coreTypes';
+import { CowId } from '../../../@types/cowTypes';
+import { PadId } from '../../../@types/padTypes';
+import { CowProps } from '../../../@types/props';
+import { Typename } from '../../../@types/typenames';
 import SVGParent from "../../../utils/SVGParent";
-import { CowId, CowTypeName, PadId, Player } from '../../../utils/types';
 import Cow from '../Cow';
 
 const cowProps: CowProps = {
-  __typename: CowTypeName.FREE_COW,
+  __typename: Typename.FREE_COW,
   centerX: 0,
   centerY: 0,
   radius: 24,

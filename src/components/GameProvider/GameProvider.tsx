@@ -1,13 +1,19 @@
 // import styles from './GameProvider.module.scss';
 
-import { createContext, useContext } from 'react';
-import { GameProviderProps } from '../../utils/props';
-import { GameProviderValue } from '../../utils/types';
+import { createContext, useContext, useEffect, useReducer } from 'react';
+import { Player } from '../../@types/coreTypes';
+import { GameProviderValue, GameStatus } from '../../@types/gameTypes';
+import { PlayOperation } from '../../@types/PlayState';
+import { GameProviderProps } from '../../@types/props';
+import { Typename } from '../../@types/typenames';
+import gameReducer from '../../reducers/gameReducer';
 import initGame from './utils/initGame';
 
+const initGameState = initGame();
+
 const gameProviderValue: GameProviderValue = {
-  game: initGame(),
-  dispatch: null,
+  game: initGameState,
+  dispatch: () => null,
 };
 
 const GameProviderContext = createContext(gameProviderValue);
@@ -15,9 +21,30 @@ const GameProviderContext = createContext(gameProviderValue);
 const GameProvider = (props: GameProviderProps) => {
   const { children } = props;
 
+  const [game, dispatch] = useReducer(gameReducer, initGameState);
+
+  useEffect(() => {
+    if (
+      game.cows.safeCows[Player.ONE] < 12 &&
+      game.gameStatus === GameStatus.ONGOING
+    ) {
+      const shouldProceedToNextPlayer =
+        game.playState.done === true &&
+        game.playState.__typename !== PlayOperation.INITIAL_STATE;
+
+      if (shouldProceedToNextPlayer) {
+        dispatch({
+          __typename: Typename.GAME_ACTION,
+          type: 'NEXT_PLAYER',
+          payload: null,
+        });
+      }
+    }
+  }, [game]);
+
   const providerValue: GameProviderValue = {
-    dispatch: null,
-    game: initGame(),
+    dispatch,
+    game,
   };
 
   return (

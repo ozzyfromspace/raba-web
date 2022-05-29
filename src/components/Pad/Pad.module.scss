@@ -1,0 +1,6 @@
+.pad {
+  cursor: pointer;
+  &-no-capture {
+    user-select: none;
+  }
+}

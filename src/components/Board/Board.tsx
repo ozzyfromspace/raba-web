@@ -1,7 +1,8 @@
 // import styles from './Board.module.scss';
 import Background from '../Background';
+import Cows from '../Cows';
 import Lines from '../Lines';
-import Pads from '../Pads/index';
+import Pads from '../Pads';
 
 const Board = () => {
   return (
@@ -17,6 +18,7 @@ const Board = () => {
           <Background />
           <Lines />
           <Pads />
+          <Cows />
         </g>
       </svg>
     </div>

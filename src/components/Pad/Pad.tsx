@@ -33,7 +33,6 @@ const Pad = (props: PadProps) => {
       cy={centerY}
       r={radius}
       fill={hoverColor}
-      // fillOpacity={hoverColor === fill ? 1 : 0.5}
       stroke={stroke}
       strokeOpacity={strokeOpacity}
       onClick={sendToGameReducer(padId, gameDispatch)}
